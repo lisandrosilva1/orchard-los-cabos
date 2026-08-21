@@ -33,8 +33,10 @@ const analyticsHost = 'orchardcabo.com';
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
     document.head.appendChild(s);
     gtag('js', new Date());
-    // send_page_view stays on: one page_view per load, no duplicates.
-    gtag('config', gaId, { anonymize_ip: true });
+    // No config options: GA4 truncates IPs by default, and passing the old
+    // anonymize_ip flag here just rides along as a junk parameter on every
+    // event. send_page_view stays on — one page_view per load, no duplicates.
+    gtag('config', gaId);
   }
 
   /** Fire a business event. Always hits dataLayer; hits GA4 when configured. */
