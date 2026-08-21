@@ -12,20 +12,28 @@
  */
 const gaId = import.meta.env.PUBLIC_GA4_ID ?? '';
 const isProd = import.meta.env.PROD;
+/** Only this host may send hits, so previews and forks cannot pollute GA4. */
+const analyticsHost = 'orchardcabo.com';
 ---
 
-{gaId && isProd && (
-  <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
-)}
-
-<script is:inline define:vars={{ gaId, isProd }}>
+<script is:inline define:vars={{ gaId, isProd, analyticsHost }}>
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
   window.gtag = gtag;
 
-  if (gaId && isProd) {
+  // The tag is loaded at runtime and only on the production hostname. The
+  // review preview and any fork run the same bundle but stay out of the data.
+  var onProdHost =
+    location.hostname === analyticsHost || location.hostname.endsWith('.' + analyticsHost);
+  var gaActive = Boolean(gaId) && isProd && onProdHost;
+
+  if (gaActive) {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+    document.head.appendChild(s);
     gtag('js', new Date());
-    // send_page_view is left on: one page_view per page load, no duplicates.
+    // send_page_view stays on: one page_view per load, no duplicates.
     gtag('config', gaId, { anonymize_ip: true });
   }
 
@@ -38,7 +46,7 @@ const isProd = import.meta.env.PROD;
       },
       params || {}
     );
-    if (gaId && isProd) gtag('event', name, payload);
+    if (gaActive) gtag('event', name, payload);
     else window.dataLayer.push(Object.assign({ event: name }, payload));
     if (!isProd) console.info('[analytics]', name, payload);
   }
