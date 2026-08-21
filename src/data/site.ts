@@ -41,17 +41,19 @@ export function whatsappUrl(message: string): string {
 
 /**
  * Social accounts. Only verified, live accounts belong here — a dead link in
- * the footer is worse than no link. Instagram was confirmed live on 2026-08-21
- * (302 followers, bio links back to orchardcabo.com).
+ * the footer is worse than no link. Both were confirmed live on 2026-08-21:
+ * Instagram (302 followers, bio links back to orchardcabo.com) and the Facebook
+ * business page (94 followers, listed as "Página · Mercado de productores",
+ * carrying the same 624 217 0064 number as this site).
  *
- * Facebook: the owner reports a page named "Orchard Los Cabos" but the URL is
- * not yet confirmed; facebook.com/orchardloscabos is not a public page. Add the
- * real URL here and it appears in the footer and in the JSON-LD automatically.
+ * The Facebook URL is the page's own canonical, resolved from the /share/ link
+ * the owner supplied. Share links carry tracking parameters and can expire, so
+ * they are never what gets published.
  */
 export const social = {
   instagram: 'https://www.instagram.com/naturaorchardcabo/',
   instagramHandle: '@naturaorchardcabo',
-  facebook: null as string | null,
+  facebook: 'https://www.facebook.com/people/Orchard-Los-Cabos/61560310995162/' as string | null,
 } as const;
 
 /** Live social profiles, for schema.org sameAs and the footer. */

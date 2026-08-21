@@ -81,7 +81,8 @@ they are also logged to the console.
 | `email_click` | `mailto:` link | `cta_location` |
 | `directions_click` | "Get directions" | `cta_location` |
 | `product_view` | Product block 50% visible | `product` |
-| `instagram_click` | Instagram link | *(no Instagram link exists yet — wired and ready)* |
+| `instagram_click` | Instagram link in the footer | `cta_location` |
+| `facebook_click` | Facebook link in the footer | `cta_location` |
 | `form_start` / `form_submit` | **Not implemented — there is no form** | — |
 
 Every event also carries `page_path` and `language`.
