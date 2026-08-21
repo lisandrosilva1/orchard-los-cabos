@@ -4,6 +4,8 @@ import Photo from '../components/Photo.astro';
 import CtaBand from '../components/CtaBand.astro';
 import PageHeader from '../components/PageHeader.astro';
 import { whatsappUrl, hours, maps } from '../data/site';
+import PriceTable from '../components/PriceTable.astro';
+import { eggPrices, poultryPrices, offers, priceNotes } from '../data/pricing';
 
 import trayImg from '../assets/images/egg-tray-in-hand.jpg';
 import crateImg from '../assets/images/egg-crate-orchard-label.jpg';
@@ -27,11 +29,18 @@ const products = [
     meta: ['Limited and seasonal', 'Mixed-colour trays on request', 'Popular for plating and display'],
   },
   {
-    id: 'whole-poultry',
-    name: 'Whole poultry',
-    lede: 'Whole birds, vacuum-sealed.',
-    body: 'Broiler chickens and mature hens raised on the same farm and the same feed as the laying flock, processed and vacuum-sealed for the trip to your kitchen. Sizes vary by batch, so we confirm weight and availability when you order.',
-    meta: ['Vacuum-sealed', 'Broilers and mature hens', 'Availability confirmed per batch'],
+    id: 'chicken',
+    name: 'Chicken, whole and by the cut',
+    lede: 'Whole birds, breast, leg and thigh, wings — and stewing hens.',
+    body: 'Raised on the same farm and the same feed as the laying flock. Everything is vacuum-sealed and frozen the same day it is processed, so what reaches your kitchen is exactly as fresh as the day it left ours. New product every week.',
+    meta: ['Whole or by the cut', 'Vacuum-sealed, frozen same day', 'Fresh batch weekly'],
+  },
+  {
+    id: 'chicken-broth',
+    name: 'Chicken broth',
+    lede: 'Slow-cooked for eight hours, by the litre.',
+    body: 'Made on the farm from our own birds and simmered for eight hours — the kind of stock that sets solid in the fridge. Sold by the litre, and it goes quickly.',
+    meta: ['One litre', 'Eight-hour simmer', 'Made on the farm'],
   },
   {
     id: 'poultry-feed',
@@ -90,6 +99,37 @@ const products = [
           </li>
         ))}
       </ol>
+    </div>
+  </section>
+
+  <!-- ── Prices ───────────────────────────────────────────── -->
+  <section class="section section--tint" id="prices">
+    <div class="wrap">
+      <span class="eyebrow">Prices</span>
+      <h2 class="pr__h">What things cost.</h2>
+      <p class="lead pr__lead">
+        Two prices for everything: what you pay collecting it at the farm, and what
+        you pay having it brought to you. {priceNotes.currency}
+      </p>
+
+      <PriceTable title="Eggs" rows={eggPrices} />
+      <PriceTable title="Chicken" rows={poultryPrices} />
+
+      <ul class="pr__offers">
+        {offers.map((o) => (
+          <li><h3>{o.title}</h3><p>{o.body}</p></li>
+        ))}
+      </ul>
+
+      <p class="pr__notes">
+        {priceNotes.usd} {priceNotes.payment} Prices last updated {priceNotes.updated};
+        message us to confirm before a large order.
+      </p>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href={ask('farm products')} target="_blank" rel="noopener"
+           data-evt="order_whatsapp_click" data-cta="prices">Order on WhatsApp</a>
+      </div>
     </div>
   </section>
 
@@ -184,4 +224,12 @@ const products = [
   .whenwhere li { display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.7rem; border-bottom: 1px solid var(--line-soft); font-size: var(--t-small); }
   .whenwhere li span:first-child { color: var(--ink-mute); }
   .whenwhere li span:last-child { text-align: right; }
+
+  .pr__h { font-size: var(--t-h2); margin-top: 0.4rem; }
+  .pr__lead { margin-top: 1.1rem; }
+  .pr__offers { list-style: none; margin: 3rem 0 0; padding: 0; display: grid; gap: 1.75rem; }
+  .pr__offers h3 { font-size: 1.05rem; }
+  .pr__offers p { margin-top: 0.4rem; color: var(--ink-soft); font-size: var(--t-small); max-width: 52ch; }
+  @media (min-width: 760px) { .pr__offers { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+  .pr__notes { margin-top: 2.5rem; font-size: var(--t-small); color: var(--ink-mute); max-width: 62ch; }
 </style>

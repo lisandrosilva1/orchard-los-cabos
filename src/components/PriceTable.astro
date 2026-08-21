@@ -1,0 +1,72 @@
+---
+import type { PriceRow } from '../data/pricing';
+
+interface Props { title: string; rows: PriceRow[]; }
+const { title, rows } = Astro.props;
+const mxn = (n: number) => `$${n.toLocaleString('en-US')}`;
+---
+<div class="pt">
+  <div class="pt__head">
+    <h3>{title}</h3>
+    <div class="pt__cols" aria-hidden="true">
+      <span>At the farm</span>
+      <span>Delivered</span>
+    </div>
+  </div>
+
+  <ul class="pt__rows">
+    {rows.map((r) => (
+      <li class="pt__row">
+        <div class="pt__what">
+          <span class="pt__name">{r.name}</span>
+          <span class="pt__qty">{r.qty}</span>
+          {r.detail && <span class="pt__detail">{r.detail}</span>}
+        </div>
+        <div class="pt__price">
+          <span class="pt__label">At the farm</span>
+          <span class="pt__num">{mxn(r.pickup)}</span>
+        </div>
+        <div class="pt__price">
+          <span class="pt__label">Delivered</span>
+          <span class="pt__num">{r.delivery === null ? '—' : mxn(r.delivery)}</span>
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .pt { margin-top: 2.5rem; }
+  .pt__head { border-bottom: 1px solid var(--ink); padding-bottom: 0.7rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .pt h3 { font-size: var(--t-h3); }
+  .pt__cols { display: none; }
+  .pt__cols span {
+    font-size: var(--t-micro); letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-mute); width: 7.5rem; text-align: right; display: inline-block;
+  }
+
+  .pt__rows { list-style: none; margin: 0; padding: 0; }
+  .pt__row {
+    display: grid; grid-template-columns: 1fr auto auto; gap: 0.35rem 1.25rem;
+    padding-block: 1rem; border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .pt__what { display: grid; gap: 0.15rem; grid-column: 1 / -1; }
+  .pt__name { font-family: var(--display); font-size: 1.1rem; line-height: 1.25; }
+  .pt__qty { font-size: var(--t-micro); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute); }
+  .pt__detail { font-size: var(--t-small); color: var(--ink-soft); max-width: 44ch; margin-top: 0.2rem; }
+
+  .pt__price { display: flex; align-items: baseline; gap: 0.5rem; }
+  .pt__label { font-size: var(--t-micro); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute); }
+  .pt__num { font-family: var(--display); font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+
+  /* From 720px the two prices become aligned columns with a single header. */
+  @media (min-width: 720px) {
+    .pt__cols { display: block; }
+    .pt__row { grid-template-columns: 1fr 7.5rem 7.5rem; align-items: start; }
+    .pt__what { grid-column: 1; }
+    .pt__price { justify-content: flex-end; }
+    .pt__label { display: none; }
+    .pt__num { font-size: 1.1rem; }
+  }
+</style>

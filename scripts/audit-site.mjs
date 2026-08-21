@@ -71,7 +71,8 @@ console.log('\n── internal links');
   for(const href of [...internal].sort()){
     let status='ERR';
     try{ const resp=await lp.goto(BASE+href,{waitUntil:'domcontentloaded'}); status=resp?resp.status():'ERR'; }catch(e){ status='ERR'; }
-    const ok=status===200;
+    // 304 Not Modified is a cache hit, not a failure.
+    const ok=(status>=200&&status<300)||status===304;
     if(!ok) issues.push(`BROKEN INTERNAL LINK: ${href} -> ${status}`);
     console.log(`   ${ok?'✓':'✗'} ${href} ${status}`);
   }

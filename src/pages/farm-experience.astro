@@ -4,6 +4,7 @@ import Photo from '../components/Photo.astro';
 import CtaBand from '../components/CtaBand.astro';
 import PageHeader from '../components/PageHeader.astro';
 import { whatsappUrl } from '../data/site';
+import { eggExperience } from '../data/pricing';
 
 import cartonImg from '../assets/images/egg-carton-on-grass.jpg';
 
@@ -91,12 +92,17 @@ const stations = [
             farm and handle an egg carefully — roughly four and up, though younger children
             come along with their families all the time.
           </p>
-          <p>Everyone goes home with eggs they collected.</p>
+          <p>
+            The egg-collecting experience is {eggExperience.qty} for
+            ${eggExperience.pickup} MXN — you walk the nesting boxes, gather them
+            yourself, and take the lot home.
+          </p>
         </div>
         <ul class="specs">
+          <li><span>Collect your own eggs</span><span>${eggExperience.pickup} MXN &middot; {eggExperience.qty} to take home</span></li>
           <li><span>Duration</span><span>About 3 hours</span></li>
           <li><span>Booking</span><span>By appointment</span></li>
-          <li><span>Ages</span><span>Family groups, all ages welcome</span></li>
+          <li><span>Who</span><span>Adults, and children with an adult</span></li>
         </ul>
         <div class="btn-row">
           <a class="btn btn--primary" href={bookFamily} target="_blank" rel="noopener"
