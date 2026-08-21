@@ -12,7 +12,8 @@
     "qa": "node scripts/qa.mjs",
     "audit": "node scripts/audit-site.mjs",
     "events": "node scripts/test-events.mjs",
-    "shots": "node scripts/shots.mjs"
+    "shots": "node scripts/shots.mjs",
+    "ga-check": "node scripts/ga-check.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
@@ -21,6 +22,6 @@
     "sharp": "^0.35.3",
     "typescript": "^5.9.3"
   },
-  "description": "Production website for Orchard Los Cabos — a poultry farm in San José del Cabo, Baja California Sur.",
+  "description": "Production website for Orchard Los Cabos \u2014 a poultry farm in San Jos\u00e9 del Cabo, Baja California Sur.",
   "license": "UNLICENSED"
 }

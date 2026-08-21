@@ -3,30 +3,49 @@
 ## Status
 
 The legacy Wix site carried **no analytics tag of any kind** — no GA4, no GTM, no
-Universal Analytics. There is therefore no historical data and no property to
-reuse. Creating the GA4 property needs the owner's Google account, so it is a
-manual step; everything on the site side is already built and tested.
+Universal Analytics. There is no historical data to migrate; measurement starts
+from the 2026-08-21 property.
 
 | Item | Status |
 | --- | --- |
-| Event layer implemented | ✅ built and verified |
-| Events proven to fire with correct params | ✅ `npm run events` |
-| GA4 property + web stream | ⚠️ **owner action** — see below |
-| Measurement ID wired into the build | ⚠️ waiting on the ID |
+| GA4 property | ✅ **Orchard Los Cabos** |
+| Measurement ID | ✅ `G-VH6X5MBFQS` |
+| Wired into the build | ✅ repo variable `PUBLIC_GA4_ID` |
+| Tag on the deployed site | ✅ loads once, production host only |
+| Events reaching the property | ✅ verified live — `npm run ga-check` |
+| Key events marked as conversions | ⚠️ owner action, see below |
 
-## Turning measurement on
+## How the ID gets in
 
-1. In Google Analytics, create a property named **Orchard Los Cabos**
-   (Mexico / `America/Mazatlan` / MXN) with a **Web** data stream for
-   `https://www.orchardcabo.com`. Copy the `G-XXXXXXXXXX` Measurement ID.
-2. In GitHub: **Settings → Secrets and variables → Actions → Variables →
-   New repository variable**, named `PUBLIC_GA4_ID`, value `G-XXXXXXXXXX`.
-3. Re-run the **Build and deploy** workflow (or push any commit).
+The Measurement ID lives in the repository variable `PUBLIC_GA4_ID`
+(**Settings → Secrets and variables → Actions → Variables**), which the deploy
+workflow passes to the build. It is not a secret — it ships in the page — but
+keeping it out of the source means a fork or a preview never inherits it.
 
-Nothing else changes. Until that variable is set the tag is simply not emitted —
-the site stays clean rather than shipping a broken tag.
+Locally, put it in a git-ignored `.env` file.
 
-Locally, `PUBLIC_GA4_ID` can go in a `.env` file (git-ignored).
+## The production-host gate
+
+The tag is injected at runtime and only when the hostname is `orchardcabo.com`
+or a subdomain of it:
+
+```js
+var onProdHost =
+  location.hostname === analyticsHost || location.hostname.endsWith('.' + analyticsHost);
+var gaActive = Boolean(gaId) && isProd && onProdHost;
+```
+
+This exists because the review preview is a byte-for-byte copy of the production
+build served from `github.io`. Without the gate it would report itself as
+orchardcabo traffic and corrupt the property from day one. Local builds and forks
+are covered by the same check. Wherever the tag is inactive, events still go to
+`window.dataLayer`, so the test harnesses work everywhere.
+
+Verify both halves at once:
+
+```bash
+npm run ga-check
+```
 
 ## How the event layer works
 

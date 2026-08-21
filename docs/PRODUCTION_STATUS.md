@@ -13,8 +13,8 @@ Statuses are deliberately separated. "Deployed" is not "live on the domain", and
 | Custom domain set on Pages | ✅ VERIFIED | Pages API `cname: www.orchardcabo.com` |
 | DNS pointed at GitHub | ❌ **BLOCKED — owner go-ahead** | Domain still resolves to Wix |
 | HTTPS on custom domain | ❌ BLOCKED | GitHub cannot issue a certificate until DNS resolves to it |
-| GA4 property | ⚠️ REQUIRES ACTION | No property exists; needs the owner's Google account |
-| GA4 events implemented | ✅ VERIFIED | 8 events fire on the deployed site with correct params |
+| GA4 property | ✅ VERIFIED | `G-VH6X5MBFQS`, created 2026-08-21 |
+| GA4 events reaching the property | ✅ VERIFIED | 16 live hits to `G-VH6X5MBFQS` with `cta_location`; preview host sends 0 |
 | Search Console | ⚠️ REQUIRES ACTION | Needs the owner's Google account; do after DNS |
 | Sitemap submitted | ⚠️ REQUIRES ACTION | Depends on Search Console |
 | Indexing requested | ⚠️ REQUIRES ACTION | Depends on Search Console |
