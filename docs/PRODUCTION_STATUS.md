@@ -11,8 +11,9 @@ Statuses are deliberately separated. "Deployed" is not "live on the domain", and
 | Built | ✅ VERIFIED | 17 pages (8 real + 9 redirect stubs) |
 | Deployed to GitHub Pages | ✅ VERIFIED | Actions run green; artifact serving |
 | Custom domain set on Pages | ✅ VERIFIED | Pages API `cname: www.orchardcabo.com` |
-| DNS pointed at GitHub | ❌ **BLOCKED — owner go-ahead** | Domain still resolves to Wix |
-| HTTPS on custom domain | ❌ BLOCKED | GitHub cannot issue a certificate until DNS resolves to it |
+| DNS pointed at GitHub | ✅ VERIFIED | Applied 2026-08-21; resolves to GitHub on 8.8.8.8 / 1.1.1.1 / 9.9.9.9 |
+| Site served on the domain | ✅ VERIFIED | GitHub Pages returns the new site over HTTP |
+| HTTPS certificate | ⏳ PENDING | GitHub reports `is_https_eligible: true`; issuance in progress |
 | GA4 property | ✅ VERIFIED | `G-VH6X5MBFQS`, created 2026-08-21 |
 | GA4 events reaching the property | ✅ VERIFIED | 16 live hits to `G-VH6X5MBFQS` with `cta_location`; preview host sends 0 |
 | Search Console | ⚠️ REQUIRES ACTION | Needs the owner's Google account; do after DNS |

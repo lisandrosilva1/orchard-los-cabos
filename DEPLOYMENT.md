@@ -69,6 +69,34 @@ still *connected to the Wix site*. Disconnect the site from the domain first
 the records, then apply the table above. Do not delete the domain, and do not
 transfer it.
 
+## Cutover: what was actually done
+
+Applied 2026-08-21 via the Wix Domain DNS API (`PATCH /domains/v1/dns-zones/orchardcabo.com`),
+after re-confirming that MX, TXT, CAA, DMARC and DKIM were all still empty.
+
+```
+DELETED   A      orchardcabo.com       185.230.63.107
+DELETED   CNAME  www.orchardcabo.com   pointing.wixdns.net
+ADDED     A      orchardcabo.com       185.199.108.153 185.199.109.153
+                                       185.199.110.153 185.199.111.153
+ADDED     CNAME  www.orchardcabo.com   lisandrosilva1.github.io
+UNTOUCHED NS, SOA, and CNAME es.orchardcabo.com
+```
+
+Propagation was effectively immediate on Google, Cloudflare and Quad9. GitHub's
+own domain check then reported `is_valid: true`, `is_served_by_pages: true` and
+`has_mx_records_present: false` for both the apex and www.
+
+> A stale **local** resolver cache will keep sending you to Wix long after the
+> change is live. Verify with `dig @8.8.8.8`, not with your own machine's cache.
+
+### Leftover: `es.orchardcabo.com`
+
+The zone also contains `CNAME es.orchardcabo.com → cdn1.wixdns.net`, a Spanish
+subdomain that predates this project. It was never in the Wix sitemap and today
+returns a Wix "ConnectYourDomain Error" page. It was deliberately left untouched
+— removing it is a one-line change whenever the owner wants it gone.
+
 ## Cutover order
 
 1. Deploy to GitHub Pages and confirm the build is green.
