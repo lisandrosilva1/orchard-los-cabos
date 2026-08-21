@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Photo from '../components/Photo.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { facts, whatsappUrl, contact } from '../data/site';
+import { facts, whatsappUrl, contact, hours, maps } from '../data/site';
 
 import heroImg from '../assets/images/eggs-in-wooden-bowl.jpg';
 import trayImg from '../assets/images/egg-tray-in-hand.jpg';
@@ -10,7 +10,7 @@ import cartonImg from '../assets/images/egg-carton-on-grass.jpg';
 import crateImg from '../assets/images/egg-crate-orchard-label.jpg';
 
 const order = whatsappUrl("Hi Orchard — I'd like to order farm products. What's available this week?");
-const directions = whatsappUrl('Hi Orchard — could you send me directions to the farm?');
+
 
 const areas = [
   {
@@ -253,19 +253,20 @@ const areas = [
           {' '}{contact.nearLandmark}.
         </p>
         <p class="loc__note">
-          It is a working farm and a private property, so we send exact directions once your
-          visit or delivery is confirmed.
+          Open for pickup every day, 9am to 4pm — no appointment needed to collect an order.
+          Guided farm visits are booked separately.
         </p>
         <div class="btn-row">
-          <a class="btn btn--ghost" href={directions} target="_blank" rel="noopener"
-             data-evt="directions_click" data-cta="home_location">Get directions</a>
+          <a class="btn btn--ghost" href={maps.url} target="_blank" rel="noopener"
+             data-evt="directions_click" data-cta="home_location">Open in Google Maps</a>
         </div>
       </div>
       <dl class="loc__facts">
+        <div><dt>Pickup at the farm</dt><dd>{hours.pickupLabel}</dd></div>
+        <div><dt>Delivery</dt><dd>{hours.deliveryLabel}, across Los Cabos</dd></div>
         <div><dt>WhatsApp &amp; phone</dt><dd><a href={`tel:${contact.phoneE164}`} data-cta="home_location">{contact.phoneDisplay}</a></dd></div>
         <div><dt>Email</dt><dd><a href={`mailto:${contact.email}`} data-cta="home_location">{contact.email}</a></dd></div>
-        <div><dt>Delivery</dt><dd>Across Los Cabos</dd></div>
-        <div><dt>Visits</dt><dd>By appointment</dd></div>
+        <div><dt>Farm visits</dt><dd>By appointment</dd></div>
       </dl>
     </div>
   </section>

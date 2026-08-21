@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Photo from '../components/Photo.astro';
 import CtaBand from '../components/CtaBand.astro';
 import PageHeader from '../components/PageHeader.astro';
-import { whatsappUrl } from '../data/site';
+import { whatsappUrl, hours, maps } from '../data/site';
 
 import trayImg from '../assets/images/egg-tray-in-hand.jpg';
 import crateImg from '../assets/images/egg-crate-orchard-label.jpg';
@@ -106,11 +106,17 @@ const products = [
         <ol class="steps">
           <li><h3>Tell us what you need</h3><p>Message the farm on WhatsApp with what you are after and roughly how much. We answer there first.</p></li>
           <li><h3>We confirm what we have</h3><p>We reply with what is actually available that week and the current price. We do not publish a fixed price list, because the flock does not work that way.</p></li>
-          <li><h3>Pick up or have it delivered</h3><p>Collect at the farm by appointment, or we deliver across Los Cabos. Regular customers and kitchens usually move to a standing weekly order.</p></li>
+          <li><h3>Pick up or have it delivered</h3><p>Collect at the farm any day between 9am and 4pm, or take a delivery — we run a delivery route across Los Cabos every Tuesday. Regular customers and kitchens usually move to a standing weekly order.</p></li>
         </ol>
+        <ul class="whenwhere">
+          <li><span>Pickup</span><span>{hours.pickupLabel}, at the farm</span></li>
+          <li><span>Delivery</span><span>{hours.deliveryLabel}</span></li>
+        </ul>
         <div class="btn-row">
           <a class="btn btn--primary" href={ask('farm products')} target="_blank" rel="noopener"
              data-evt="order_whatsapp_click" data-cta="products_how">Start an order</a>
+          <a class="btn btn--ghost" href={maps.url} target="_blank" rel="noopener"
+             data-evt="directions_click" data-cta="products_how">Find the farm</a>
         </div>
       </div>
     </div>
@@ -174,4 +180,8 @@ const products = [
   }
   .steps h3 { font-size: 1.05rem; }
   .steps p { margin-top: 0.4rem; color: var(--ink-soft); font-size: var(--t-small); }
+  .whenwhere { list-style: none; margin: 1.75rem 0 0; padding: 0; border-top: 1px solid var(--line); }
+  .whenwhere li { display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.7rem; border-bottom: 1px solid var(--line-soft); font-size: var(--t-small); }
+  .whenwhere li span:first-child { color: var(--ink-mute); }
+  .whenwhere li span:last-child { text-align: right; }
 </style>

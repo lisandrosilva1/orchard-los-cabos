@@ -29,9 +29,37 @@ export const contact = {
   regionCode: 'BCS',
   country: 'Mexico',
   countryCode: 'MX',
-  /** Deliberately area-level, not a street address: the farm is a private property. */
+  /** Area-level. See docs/CONTENT_AUDIT.md §8 for the open naming question. */
   areaDescription: 'Mango Fields area, San José del Cabo',
   nearLandmark: 'minutes from Los Cabos International Airport (SJD)',
+  postalCode: '23436',
+} as const;
+
+/**
+ * Trading hours, confirmed by the owner on 2026-08-21.
+ *
+ * Note this supersedes the old "by appointment only" line: the farm is open for
+ * pickup every day. Farm *visits* (the guided experience) are still booked.
+ */
+export const hours = {
+  pickupDays: 'Daily',
+  pickupOpen: '09:00',
+  pickupClose: '16:00',
+  pickupLabel: 'Every day, 9am–4pm',
+  deliveryLabel: 'Every Tuesday',
+  deliveryDay: 'Tuesday',
+} as const;
+
+/**
+ * The farm's Google Business Profile. The `cid` form is the canonical, stable
+ * permalink for a listing — unlike a /maps/place/ URL, it survives renames and
+ * carries no session parameters.
+ */
+export const maps = {
+  url: 'https://maps.google.com/?cid=15984330469735309506',
+  latitude: 23.13483,
+  longitude: -109.7065779,
+  plusCode: '47MV+W9 San José del Cabo',
 } as const;
 
 /** Prefilled WhatsApp deep link. `text` is encoded at call time. */

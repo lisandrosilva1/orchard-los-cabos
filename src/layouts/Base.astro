@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Analytics from '../components/Analytics.astro';
 import WhatsAppFab from '../components/WhatsAppFab.astro';
-import { site, contact, socialLinks } from '../data/site';
+import { site, contact, socialLinks, maps, hours } from '../data/site';
 
 interface Props {
   title: string;
@@ -45,8 +45,25 @@ const graph: Record<string, unknown>[] = [
       '@type': 'PostalAddress',
       addressLocality: contact.city,
       addressRegion: contact.regionCode,
+      postalCode: contact.postalCode,
       addressCountry: contact.countryCode,
     },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: maps.latitude,
+      longitude: maps.longitude,
+    },
+    hasMap: maps.url,
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: [
+          'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',
+        ],
+        opens: hours.pickupOpen,
+        closes: hours.pickupClose,
+      },
+    ],
     areaServed: [
       { '@type': 'City', name: 'San José del Cabo' },
       { '@type': 'City', name: 'Cabo San Lucas' },
