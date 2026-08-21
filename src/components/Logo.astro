@@ -1,0 +1,39 @@
+---
+/**
+ * Typographic brand lockup.
+ *
+ * The legacy site used an AI-generated engraved-poultry badge that carried an
+ * unverifiable "PASTURED POULTRY / NATURAL" strapline and was illegible at
+ * small sizes. It was retired; this lockup is the mark. See docs/BRAND.md.
+ */
+interface Props { size?: 'sm' | 'md'; }
+const { size = 'md' } = Astro.props;
+---
+<span class:list={['lockup', `lockup--${size}`]}>
+  <span class="lockup__name">Orchard</span>
+  <span class="lockup__place">Los Cabos</span>
+</span>
+
+<style>
+  .lockup { display: inline-flex; flex-direction: column; line-height: 1; text-decoration: none; }
+  .lockup__name {
+    font-family: var(--display);
+    font-weight: 500;
+    letter-spacing: 0.012em;
+    font-size: 1.5rem;
+  }
+  .lockup__place {
+    font-family: var(--body);
+    font-size: 0.5625rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-top: 0.4em;
+    padding-left: 0.14em;
+  }
+  .lockup--sm .lockup__name { font-size: 1.25rem; }
+  .lockup--sm .lockup__place { font-size: 0.5rem; }
+  @media (min-width: 900px) {
+    .lockup--md .lockup__name { font-size: 1.75rem; }
+  }
+</style>

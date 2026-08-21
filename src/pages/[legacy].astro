@@ -1,0 +1,30 @@
+---
+import { redirects } from '../data/redirects';
+import { site } from '../data/site';
+
+export function getStaticPaths() {
+  return redirects.map((r) => ({ params: { legacy: r.from }, props: { to: r.to } }));
+}
+
+const { to } = Astro.props;
+const target = new URL(to, site.origin).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Moved — Orchard Los Cabos</title>
+    <link rel="canonical" href={target} />
+    <meta http-equiv="refresh" content={`0; url=${to}`} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline define:vars={{ to }}>window.location.replace(to);</script>
+    <style>
+      body { font: 16px/1.6 ui-sans-serif, system-ui, sans-serif; background: #f8f4ed; color: #22201c;
+             display: grid; place-items: center; min-height: 100vh; margin: 0; padding: 2rem; text-align: center; }
+      a { color: #9d5c39; }
+    </style>
+  </head>
+  <body>
+    <p>This page has moved. <a href={to}>Continue to Orchard Los Cabos</a>.</p>
+  </body>
+</html>

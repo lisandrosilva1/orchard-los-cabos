@@ -1,0 +1,88 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { contact, site } from '../data/site';
+const updated = 'August 2026';
+---
+<Base
+  title="Privacy | Orchard Los Cabos"
+  description="What this website collects, what it does not, and how to reach Orchard Los Cabos about it."
+  breadcrumb={[{ name: 'Privacy', href: '/privacy/' }]}
+>
+  <PageHeader
+    eyebrow="Privacy"
+    title="What this site collects."
+    lead="Short version: no accounts, no forms, no newsletter, no advertising trackers. Anonymous traffic measurement, and whatever you choose to tell us when you message the farm."
+  />
+
+  <section class="section">
+    <div class="wrap narrow prose">
+      <p><em>Last updated: {updated}</em></p>
+
+      <h2>Who we are</h2>
+      <p>
+        {site.name}, a farm business in {contact.city}, {contact.region}, {contact.country}.
+        You can reach us at <a href={`mailto:${contact.email}`}>{contact.email}</a> or on
+        {' '}<a href={`tel:${contact.phoneE164}`}>{contact.phoneDisplay}</a>.
+      </p>
+
+      <h2>Analytics</h2>
+      <p>
+        This site uses Google Analytics 4 to count visits and see which pages and buttons get
+        used, so we know what is worth improving. It records things like the pages you view,
+        which calls-to-action you click, your approximate region, your device type and how you
+        arrived. IP addresses are anonymised. We do not use it to identify individual people,
+        and we do not run advertising or remarketing tags.
+      </p>
+      <p>
+        Google Analytics sets cookies in your browser. You can block them with your browser
+        settings or with Google's opt-out add-on, and the site works exactly the same without them.
+      </p>
+
+      <h2>There are no forms on this site</h2>
+      <p>
+        We deliberately did not build one. Every enquiry button opens WhatsApp, your phone
+        app or your email client — so nothing is collected by this website, and the
+        conversation happens in a tool you already control.
+      </p>
+
+      <h2>When you contact us</h2>
+      <p>
+        If you message, call or email the farm, we keep that conversation and whatever you
+        tell us in it — your name, your number, your delivery address, what you ordered — for
+        as long as we are doing business together, because we need it to actually deliver
+        your eggs. We do not sell it, rent it or pass it to anyone who is not involved in
+        getting your order to you.
+      </p>
+      <p>
+        Messages sent over WhatsApp are handled by WhatsApp under its own privacy terms, not ours.
+      </p>
+
+      <h2>Third-party links</h2>
+      <p>
+        Buttons on this site open WhatsApp, your phone dialler and your mail app. Those
+        services have their own privacy policies, and this policy stops at our edge.
+      </p>
+
+      <h2>Children</h2>
+      <p>
+        This site is aimed at adults. We do not knowingly collect information from children
+        through it. School visits are arranged directly with the institution, and any student
+        information shared for a visit is used only to run that visit safely.
+      </p>
+
+      <h2>Your choices</h2>
+      <p>
+        You can ask us what we hold about you, ask us to correct it, or ask us to delete it —
+        email <a href={`mailto:${contact.email}`}>{contact.email}</a> and we will handle it.
+        You can block analytics cookies at any time in your browser.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        If this changes, we will update this page and the date at the top. There is no version
+        history worth keeping; the page is short on purpose.
+      </p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,74 @@
+---
+import Logo from './Logo.astro';
+import { contact, nav, whatsappUrl } from '../data/site';
+
+const year = new Date().getFullYear();
+const order = whatsappUrl("Hi Orchard — I'd like to order farm products.");
+---
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <Logo size="sm" />
+        <p class="ftr__blurb">
+          A working farm in {contact.areaDescription}, producing farm-fresh eggs
+          and poultry for Los Cabos.
+        </p>
+      </div>
+
+      <nav class="ftr__nav" aria-label="Footer">
+        <h2>Explore</h2>
+        {nav.map((i) => <a href={i.href}>{i.label}</a>)}
+        <a href="/privacy/">Privacy</a>
+      </nav>
+
+      <div class="ftr__contact">
+        <h2>Contact</h2>
+        <a href={order} target="_blank" rel="noopener" data-evt="order_whatsapp_click" data-cta="footer">
+          WhatsApp {contact.phoneDisplay}
+        </a>
+        <a href={`tel:${contact.phoneE164}`} data-cta="footer">Call {contact.phoneDisplay}</a>
+        <a href={`mailto:${contact.email}`} data-cta="footer">{contact.email}</a>
+        <p class="ftr__where">
+          {contact.city}, {contact.region}<br />{contact.country}
+        </p>
+      </div>
+    </div>
+
+    <hr class="rule" />
+
+    <div class="ftr__bottom">
+      <p>&copy; {year} Orchard Los Cabos. All rights reserved.</p>
+      <p class="ftr__network">Featured by Los Cabos Discovery Network</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr { background: var(--paper-deep); padding-block: var(--sect-y) 2.5rem; border-top: 1px solid var(--line-soft); }
+  .ftr__top { display: grid; gap: 2.75rem; padding-bottom: 3rem; }
+  .ftr__blurb { margin-top: 1.15rem; color: var(--ink-soft); font-size: var(--t-small); max-width: 30ch; }
+
+  .ftr h2 {
+    font-family: var(--body); font-size: var(--t-micro); font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute);
+    margin-bottom: 1.15rem;
+  }
+  .ftr__nav, .ftr__contact { display: grid; align-content: start; gap: 0.7rem; }
+  .ftr__nav a, .ftr__contact a {
+    text-decoration: none; color: var(--ink-soft); font-size: var(--t-small);
+    width: fit-content; border-bottom: 1px solid transparent; padding-block: 0.15rem;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .ftr__nav a:hover, .ftr__contact a:hover { color: var(--ink); border-color: var(--clay); }
+  .ftr__where { font-size: var(--t-small); color: var(--ink-mute); margin-top: 0.5rem; }
+
+  .ftr__bottom {
+    display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem;
+    justify-content: space-between; padding-top: 1.75rem;
+    font-size: var(--t-micro); color: var(--ink-mute);
+  }
+  .ftr__network { letter-spacing: 0.07em; text-transform: uppercase; }
+
+  @media (min-width: 760px) { .ftr__top { grid-template-columns: 1.6fr 1fr 1.2fr; gap: 3rem; } }
+</style>

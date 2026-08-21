@@ -1,0 +1,177 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { whatsappUrl } from '../data/site';
+
+import trayImg from '../assets/images/egg-tray-in-hand.jpg';
+import crateImg from '../assets/images/egg-crate-orchard-label.jpg';
+
+const ask = (what: string) =>
+  whatsappUrl(`Hi Orchard — I'd like to order ${what}. Could you send me current availability and pricing?`);
+
+const products = [
+  {
+    id: 'farm-fresh-eggs',
+    name: 'Farm-fresh eggs',
+    lede: 'The everyday egg, collected by hand each morning.',
+    body: 'Brown, cream and freckled tan shells from our laying flock, sorted and packed the same day they are collected. Available by the dozen in cartons, or by the tray for households and kitchens that go through a lot of them.',
+    meta: ['By the dozen or by the tray', 'Carton or wooden crate packing', 'Labelled Orchard packaging available'],
+  },
+  {
+    id: 'coloured-eggs',
+    name: 'Speciality coloured eggs',
+    lede: 'Pale blue-green shells, from the araucana birds in the flock.',
+    body: 'The blue-green eggs come from specific birds in our flock and are laid in smaller numbers, so they move in and out of availability. Mixed trays — blue-green beside deep brown and cream — are the ones chefs tend to ask for.',
+    meta: ['Limited and seasonal', 'Mixed-colour trays on request', 'Popular for plating and display'],
+  },
+  {
+    id: 'whole-poultry',
+    name: 'Whole poultry',
+    lede: 'Whole birds, vacuum-sealed.',
+    body: 'Broiler chickens and mature hens raised on the same farm and the same feed as the laying flock, processed and vacuum-sealed for the trip to your kitchen. Sizes vary by batch, so we confirm weight and availability when you order.',
+    meta: ['Vacuum-sealed', 'Broilers and mature hens', 'Availability confirmed per batch'],
+  },
+  {
+    id: 'poultry-feed',
+    name: 'Farm-milled poultry feed',
+    lede: 'The same feed our own birds eat, in 25 kg sacks.',
+    body: 'We formulate and pellet our feed on the farm from corn, wheat bran, soybean meal and scratch grains, with ginger, turmeric, garlic, onion and oregano. No hormones, no artificial preservatives. Sold to smallholders and properties keeping their own birds.',
+    meta: ['25 kg sacks', 'Pelletised', 'Delivery available'],
+  },
+  {
+    id: 'composted-fertiliser',
+    name: 'Composted chicken manure',
+    lede: 'What the farm gives back to the soil.',
+    body: 'Composted on site under controlled fermentation and bagged ready to use — a nitrogen-rich soil conditioner for vegetable beds, fruit trees and ornamentals. Sold by the bag with a minimum order.',
+    meta: ['Bagged, ready to use', 'Minimum order applies', 'Composted on the farm'],
+  },
+];
+---
+<Base
+  title="Farm Products — Eggs, Poultry & Feed | Orchard Los Cabos"
+  description="Farm-fresh eggs, speciality coloured eggs, whole poultry, farm-milled feed and composted fertiliser, delivered across Los Cabos. Order on WhatsApp."
+  breadcrumb={[{ name: 'Farm Products', href: '/farm-products/' }]}
+  fabMessage="Hi Orchard — I'd like to order farm products."
+>
+  <PageHeader
+    eyebrow="Farm products"
+    title="What the farm has, week by week."
+    lead="Eggs collected by hand, poultry raised on our own feed, and what comes with keeping a farm running. Availability shifts with the flock, so the fastest way to know what we have today is to ask."
+  >
+    <div class="btn-row">
+      <a class="btn btn--primary" href={ask('farm products')} target="_blank" rel="noopener"
+         data-evt="order_whatsapp_click" data-cta="products_header">Order on WhatsApp</a>
+    </div>
+  </PageHeader>
+
+  <section class="section">
+    <div class="wrap">
+      <ol class="plist">
+        {products.map((p, i) => (
+          <li class="prod" id={p.id} data-product-view data-product={p.id}>
+            <div class="prod__head">
+              <span class="prod__n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <h2>{p.name}</h2>
+            </div>
+            <div class="prod__body">
+              <p class="prod__lede">{p.lede}</p>
+              <p class="prod__text">{p.body}</p>
+              <ul class="prod__meta">
+                {p.meta.map((m) => <li>{m}</li>)}
+              </ul>
+              <a class="link prod__cta" href={ask(p.name.toLowerCase())} target="_blank" rel="noopener"
+                 data-evt="order_whatsapp_click" data-cta="product_block" data-product={p.id}>
+                Request availability
+                <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+              </a>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap feature">
+      <div class="feature__media">
+        <Photo src={trayImg}
+          alt="A tray of Orchard eggs held in one hand, pale blue-green shells beside deep brown ones."
+          sizes="(min-width: 900px) 48vw, 100vw" widths={[420, 640, 900, 1100]} ratio="1/1" />
+      </div>
+      <div class="feature__copy">
+        <span class="eyebrow">Ordering</span>
+        <h2>How it works.</h2>
+        <ol class="steps">
+          <li><h3>Tell us what you need</h3><p>Message the farm on WhatsApp with what you are after and roughly how much. We answer there first.</p></li>
+          <li><h3>We confirm what we have</h3><p>We reply with what is actually available that week and the current price. We do not publish a fixed price list, because the flock does not work that way.</p></li>
+          <li><h3>Pick up or have it delivered</h3><p>Collect at the farm by appointment, or we deliver across Los Cabos. Regular customers and kitchens usually move to a standing weekly order.</p></li>
+        </ol>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={ask('farm products')} target="_blank" rel="noopener"
+             data-evt="order_whatsapp_click" data-cta="products_how">Start an order</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap feature feature--flip">
+      <div class="feature__media">
+        <Photo src={crateImg}
+          alt="A wooden Orchard egg crate tied with twine and tagged with the farm's label."
+          sizes="(min-width: 900px) 48vw, 100vw" widths={[420, 640, 900, 1100]} ratio="4/3" />
+      </div>
+      <div class="feature__copy">
+        <span class="eyebrow">For kitchens</span>
+        <h2>Buying for a hotel or restaurant?</h2>
+        <div class="prose">
+          <p>
+            Standing weekly orders, speciality coloured eggs, packaging with your own labels
+            and custom poultry programmes are handled separately from retail orders.
+          </p>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn--ghost" href="/hospitality/" data-evt="hospitality_inquiry" data-cta="products_cross">
+            See hospitality supply
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand location="products" />
+</Base>
+
+<style>
+  .plist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .prod { display: grid; gap: 0.9rem 3rem; padding-block: clamp(2rem, 1.4rem + 2.2vw, 3.25rem); border-bottom: 1px solid var(--line); }
+  .prod__head { display: flex; align-items: baseline; gap: 1rem; }
+  .prod__n { font-family: var(--display); font-size: var(--t-small); color: var(--clay); letter-spacing: 0.1em; }
+  .prod h2 { font-size: var(--t-h3); }
+  .prod__lede { font-family: var(--display); font-size: 1.28rem; line-height: 1.35; max-width: 40ch; }
+  .prod__text { margin-top: 0.9rem; color: var(--ink-soft); max-width: 58ch; }
+  .prod__meta { list-style: none; padding: 0; margin: 1.35rem 0 0; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .prod__meta li {
+    font-size: var(--t-micro); letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--ink-mute); border: 1px solid var(--line); border-radius: 999px; padding: 0.4rem 0.8rem;
+  }
+  .prod__cta { margin-top: 1.6rem; }
+  @media (min-width: 860px) { .prod { grid-template-columns: 20rem 1fr; } .prod__head { display: block; } .prod__n { display: block; margin-bottom: 0.6rem; } }
+
+  .feature { display: grid; gap: clamp(1.75rem, 1rem + 4vw, 3.5rem); align-items: center; }
+  .feature__copy h2 { font-size: var(--t-h2); }
+  @media (min-width: 900px) { .feature { grid-template-columns: 1fr 1fr; } .feature--flip .feature__media { order: 2; } }
+
+  .steps { list-style: none; margin: 2rem 0 0; padding: 0; counter-reset: s; display: grid; gap: 1.6rem; }
+  .steps li { counter-increment: s; padding-left: 2.5rem; position: relative; }
+  .steps li::before {
+    content: counter(s); position: absolute; left: 0; top: 0.05rem;
+    font-family: var(--display); font-size: var(--t-small); color: var(--clay);
+    border: 1px solid var(--line); border-radius: 50%; width: 1.75rem; height: 1.75rem;
+    display: grid; place-items: center;
+  }
+  .steps h3 { font-size: 1.05rem; }
+  .steps p { margin-top: 0.4rem; color: var(--ink-soft); font-size: var(--t-small); }
+</style>

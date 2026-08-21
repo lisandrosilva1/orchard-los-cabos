@@ -1,0 +1,26 @@
+{
+  "name": "orchard-los-cabos",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "typecheck": "tsc --noEmit",
+    "qa": "node scripts/qa.mjs",
+    "audit": "node scripts/audit-site.mjs",
+    "events": "node scripts/test-events.mjs",
+    "shots": "node scripts/shots.mjs"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "astro": "^5.18.2",
+    "puppeteer-core": "^25.8.0",
+    "sharp": "^0.35.3",
+    "typescript": "^5.9.3"
+  },
+  "description": "Production website for Orchard Los Cabos — a poultry farm in San José del Cabo, Baja California Sur.",
+  "license": "UNLICENSED"
+}

@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { contact, whatsappUrl } from '../data/site';
+const order = whatsappUrl("Hi Orchard — following up on my enquiry.");
+---
+<Base
+  title="Thank you | Orchard Los Cabos"
+  description="Thanks for getting in touch with Orchard Los Cabos. We answer messages to the farm the same day wherever we can."
+  noindex
+>
+  <PageHeader
+    eyebrow="Thank you"
+    title="Got it — we'll come back to you."
+    lead="Messages to the farm are usually answered the same day. If it is urgent, calling is faster than waiting."
+  >
+    <div class="btn-row">
+      <a class="btn btn--primary" href={order} target="_blank" rel="noopener"
+         data-evt="order_whatsapp_click" data-cta="thank_you">Message on WhatsApp</a>
+      <a class="btn btn--ghost" href={`tel:${contact.phoneE164}`} data-cta="thank_you">
+        Call {contact.phoneDisplay}
+      </a>
+    </div>
+  </PageHeader>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">While you wait</span>
+      <ul class="tylinks">
+        <li><a href="/farm-products/">What the farm has this week</a></li>
+        <li><a href="/farm-experience/">Bring the family to the farm</a></li>
+        <li><a href="/hospitality/">Supply for hotels and restaurants</a></li>
+        <li><a href="/about/">Why there is a farm here at all</a></li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .tylinks { list-style: none; padding: 0; margin: 1.5rem 0 0; border-top: 1px solid var(--line); }
+  .tylinks li { border-bottom: 1px solid var(--line); }
+  .tylinks a { display: block; padding-block: 1.15rem; text-decoration: none; font-family: var(--display); font-size: 1.25rem; }
+  .tylinks a:hover { color: var(--clay); }
+</style>

@@ -1,0 +1,338 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { facts, whatsappUrl, contact } from '../data/site';
+
+import heroImg from '../assets/images/eggs-in-wooden-bowl.jpg';
+import trayImg from '../assets/images/egg-tray-in-hand.jpg';
+import cartonImg from '../assets/images/egg-carton-on-grass.jpg';
+import crateImg from '../assets/images/egg-crate-orchard-label.jpg';
+
+const order = whatsappUrl("Hi Orchard — I'd like to order farm products. What's available this week?");
+const directions = whatsappUrl('Hi Orchard — could you send me directions to the farm?');
+
+const areas = [
+  {
+    n: '01',
+    title: 'Farm Products',
+    href: '/farm-products/',
+    body: 'Eggs collected by hand in their natural range of colours, whole poultry, farm-milled feed and composted fertiliser. Delivered across Los Cabos.',
+    cta: 'See farm products',
+  },
+  {
+    n: '02',
+    title: 'Farm Experience',
+    href: '/farm-experience/',
+    body: 'Families, children and school groups spend a morning on the farm — meeting the birds, collecting eggs and seeing where food actually comes from.',
+    cta: 'Visit Orchard',
+  },
+  {
+    n: '03',
+    title: 'Hospitality',
+    href: '/hospitality/',
+    body: 'Recurring egg and poultry supply for hotels, restaurants, villas and private chefs — plus custom poultry programmes built around a property.',
+    cta: 'Work with Orchard',
+  },
+];
+---
+<Base
+  title="Orchard Los Cabos — Farm-Fresh Eggs & Poultry"
+  description="Farm-fresh eggs and poultry from our farm in San José del Cabo — plus farm visits for families and schools, and weekly supply for Los Cabos kitchens."
+>
+  <!-- ── Hero ─────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero__inner wrap">
+      <div class="hero__copy">
+        <span class="eyebrow">{contact.city} &middot; {contact.region}</span>
+        <h1>Raised in Los&nbsp;Cabos. <br />Collected fresh.</h1>
+        <p class="lead hero__lead">
+          Eggs, poultry and real farm experiences from our farm in San&nbsp;José del&nbsp;Cabo.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={order} target="_blank" rel="noopener"
+             data-evt="order_whatsapp_click" data-cta="hero">Order farm products</a>
+          <a class="btn btn--ghost" href="/farm-experience/" data-evt="farm_visit_click" data-cta="hero">
+            Visit the farm
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__figure">
+        <Photo
+          src={heroImg}
+          alt="A wooden bowl of freshly collected Orchard eggs in brown, cream and pale blue-green, resting in the grass beneath the mango trees."
+          sizes="(min-width: 1000px) 46vw, 100vw"
+          widths={[440, 700, 900, 1200]}
+          priority
+          class="hero__img"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Introduction ─────────────────────────────────────── -->
+  <section class="section">
+    <div class="wrap intro">
+      <span class="eyebrow">The farm</span>
+      <h2>A working farm, minutes from the&nbsp;airport.</h2>
+      <div class="prose intro__body">
+        <p>
+          Orchard is a small poultry farm in the {contact.areaDescription} — {contact.nearLandmark}.
+          Our birds live outdoors under decades-old mango trees, in the shade and airflow
+          those trees make on an otherwise dry piece of Baja California Sur.
+        </p>
+        <p>
+          We formulate and mill our own feed on site, collect the eggs by hand, and deliver
+          across Los Cabos ourselves. It is a short chain with nobody in the middle, and it
+          is open to anyone who wants to come and look at it.
+        </p>
+        <a class="link" href="/about/">
+          Our story
+          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M2 7h10M8 3l4 4-4 4" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Three business areas ─────────────────────────────── -->
+  <section class="section section--tint">
+    <div class="wrap">
+      <span class="eyebrow">What Orchard does</span>
+      <ol class="areas">
+        {areas.map((a) => (
+          <li class="area">
+            <span class="area__n" aria-hidden="true">{a.n}</span>
+            <div class="area__body">
+              <h3><a href={a.href}>{a.title}</a></h3>
+              <p>{a.body}</p>
+              <span class="link area__cta">
+                {a.cta}
+                <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M2 7h10M8 3l4 4-4 4" />
+                </svg>
+              </span>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── Featured product: the eggs ───────────────────────── -->
+  <section class="section" data-product-view data-product="eggs">
+    <div class="wrap feature">
+      <div class="feature__media">
+        <Photo
+          src={trayImg}
+          alt="A tray of Orchard eggs held in one hand, pale blue-green shells beside deep brown ones."
+          sizes="(min-width: 900px) 48vw, 100vw"
+          widths={[420, 640, 900, 1100]}
+          ratio="4/5"
+        />
+      </div>
+      <div class="feature__copy">
+        <span class="eyebrow">Featured</span>
+        <h2>The eggs.</h2>
+        <div class="prose">
+          <p>
+            Our hens lay in their own natural range of colours — deep brown, cream, freckled
+            tan and the pale blue-green that comes from the araucana birds in the flock. Nothing
+            is dyed and nothing is sorted out for looking different.
+          </p>
+          <p>
+            Eggs are collected by hand, packed in cartons or wooden crates, and available by
+            the dozen or by the tray for regular customers and kitchens.
+          </p>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={order} target="_blank" rel="noopener"
+             data-evt="order_whatsapp_click" data-cta="home_feature" data-product="eggs">
+            Request today&rsquo;s pricing
+          </a>
+          <a class="btn btn--ghost" href="/farm-products/">All farm products</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Why Orchard ──────────────────────────────────────── -->
+  <section class="section section--tint">
+    <div class="wrap">
+      <span class="eyebrow">Why Orchard</span>
+      <h2 class="why__h">No certificates. Just the farm, and what we actually do on&nbsp;it.</h2>
+      <ul class="facts">
+        {facts.map((f) => (
+          <li class="fact">
+            <h3>{f.title}</h3>
+            <p>{f.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Farm experience ──────────────────────────────────── -->
+  <section class="section">
+    <div class="wrap feature feature--flip">
+      <div class="feature__media">
+        <Photo
+          src={cartonImg}
+          alt="A carton of Orchard eggs with the farm's Huevo de Granja label, sitting on the grass."
+          sizes="(min-width: 900px) 48vw, 100vw"
+          widths={[420, 640, 900, 1100]}
+          ratio="4/3"
+        />
+      </div>
+      <div class="feature__copy">
+        <span class="eyebrow">Farm experience</span>
+        <h2>Come and collect your own.</h2>
+        <div class="prose">
+          <p>
+            Families and school groups spend a guided morning on the farm: meeting the chicks,
+            walking through the growing and laying areas, collecting eggs from the nesting
+            boxes, watching the mill where the feed is made, and talking about how the birds
+            are looked after.
+          </p>
+          <p>Visits are by appointment, and every child goes home with eggs they collected themselves.</p>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="/farm-experience/" data-evt="farm_visit_click" data-cta="home_experience">
+            Plan a farm visit
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Hospitality ──────────────────────────────────────── -->
+  <section class="section">
+    <div class="wrap feature">
+      <div class="feature__media">
+        <Photo
+          src={crateImg}
+          alt="A wooden Orchard egg crate tied with twine and tagged with the farm's label."
+          sizes="(min-width: 900px) 48vw, 100vw"
+          widths={[420, 640, 900, 1100]}
+          ratio="4/3"
+        />
+      </div>
+      <div class="feature__copy">
+        <span class="eyebrow">Hospitality</span>
+        <h2>For the kitchens of Los&nbsp;Cabos.</h2>
+        <div class="prose">
+          <p>
+            Hotels, restaurants, villas and private chefs work with us on standing weekly
+            orders — house eggs, speciality coloured eggs and whole poultry, packed the way
+            the kitchen needs them.
+          </p>
+          <p>
+            We also build custom poultry programmes for properties that want to produce on
+            their own land, and run technical visits for teams already keeping birds.
+          </p>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="/hospitality/" data-evt="hospitality_inquiry" data-cta="home_hospitality">
+            Work with Orchard
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Location ─────────────────────────────────────────── -->
+  <section class="section section--tint">
+    <div class="wrap loc">
+      <div>
+        <span class="eyebrow">Where we are</span>
+        <h2>{contact.areaDescription}.</h2>
+        <p class="lead">
+          The farm sits in the mango fields on the edge of San&nbsp;José del&nbsp;Cabo,
+          {' '}{contact.nearLandmark}.
+        </p>
+        <p class="loc__note">
+          It is a working farm and a private property, so we send exact directions once your
+          visit or delivery is confirmed.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--ghost" href={directions} target="_blank" rel="noopener"
+             data-evt="directions_click" data-cta="home_location">Get directions</a>
+        </div>
+      </div>
+      <dl class="loc__facts">
+        <div><dt>WhatsApp &amp; phone</dt><dd><a href={`tel:${contact.phoneE164}`} data-cta="home_location">{contact.phoneDisplay}</a></dd></div>
+        <div><dt>Email</dt><dd><a href={`mailto:${contact.email}`} data-cta="home_location">{contact.email}</a></dd></div>
+        <div><dt>Delivery</dt><dd>Across Los Cabos</dd></div>
+        <div><dt>Visits</dt><dd>By appointment</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <CtaBand location="home" />
+</Base>
+
+<style>
+  /* ---- hero ---- */
+  .hero { padding-block: clamp(2.5rem, 1.5rem + 4vw, 5rem) clamp(3rem, 2rem + 4vw, 6rem); }
+  .hero__inner { display: grid; gap: clamp(2rem, 1rem + 5vw, 4rem); align-items: center; }
+  .hero h1 { font-size: var(--t-hero); }
+  .hero__lead { margin-top: 1.5rem; }
+  .hero__figure :global(.hero__img) {
+    width: 100%; height: auto; border-radius: var(--radius);
+    aspect-ratio: 4 / 5; object-fit: cover;
+  }
+  @media (min-width: 1000px) {
+    .hero__inner { grid-template-columns: 1fr 0.92fr; }
+    .hero__figure :global(.hero__img) { aspect-ratio: 4 / 5.1; }
+  }
+
+  /* ---- intro ---- */
+  .intro h2 { font-size: var(--t-h2); max-width: 20ch; }
+  .intro__body { margin-top: 1.75rem; }
+  .intro__body .link { margin-top: 0.75rem; }
+
+  /* ---- three areas ---- */
+  .areas { list-style: none; padding: 0; margin: 2.5rem 0 0; border-top: 1px solid var(--line); }
+  .area { display: grid; gap: 0.25rem 2rem; padding-block: clamp(1.75rem, 1.2rem + 2vw, 2.75rem); border-bottom: 1px solid var(--line); }
+  .area__n { font-family: var(--display); font-size: var(--t-small); color: var(--clay); letter-spacing: 0.1em; }
+  .area h3 { font-size: var(--t-h3); }
+  .area h3 a { text-decoration: none; }
+  .area h3 a::after { content: ''; position: absolute; inset: 0; }
+  .area { position: relative; }
+  .area p { margin-top: 0.7rem; color: var(--ink-soft); max-width: 54ch; }
+  .area__cta { margin-top: 1.1rem; color: var(--ink); border-color: var(--line); }
+  .area:hover .area__cta { border-color: var(--clay); }
+  @media (min-width: 800px) { .area { grid-template-columns: 5rem 1fr; } }
+
+  /* ---- feature blocks ---- */
+  .feature { display: grid; gap: clamp(1.75rem, 1rem + 4vw, 3.5rem); align-items: center; }
+  .feature__copy h2 { font-size: var(--t-h2); }
+  .feature__copy .prose { margin-top: 1.5rem; }
+  @media (min-width: 900px) {
+    .feature { grid-template-columns: 1fr 1fr; }
+    .feature--flip .feature__media { order: 2; }
+  }
+
+  /* ---- facts ---- */
+  .why__h { font-size: var(--t-h2); max-width: 22ch; margin-top: 0.5rem; }
+  .facts { list-style: none; padding: 0; margin: 3rem 0 0; display: grid; gap: 2.25rem; }
+  .fact { border-top: 1px solid var(--line); padding-top: 1.25rem; }
+  .fact h3 { font-size: 1.15rem; letter-spacing: -0.01em; }
+  .fact p { margin-top: 0.6rem; color: var(--ink-soft); font-size: var(--t-small); line-height: 1.65; }
+  @media (min-width: 680px) { .facts { grid-template-columns: repeat(2, 1fr); gap: 2.25rem 2.5rem; } }
+  @media (min-width: 1000px) { .facts { grid-template-columns: repeat(3, 1fr); } }
+
+  /* ---- location ---- */
+  .loc { display: grid; gap: clamp(2rem, 1rem + 4vw, 4rem); align-items: start; }
+  .loc h2 { font-size: var(--t-h2); max-width: 14ch; }
+  .loc .lead { margin-top: 1.25rem; }
+  .loc__note { margin-top: 1rem; font-size: var(--t-small); color: var(--ink-mute); max-width: 46ch; }
+  .loc__facts { display: grid; gap: 1.35rem; margin: 0; }
+  .loc__facts dt { font-size: var(--t-micro); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); }
+  .loc__facts dd { margin: 0.35rem 0 0; font-size: var(--t-body); }
+  .loc__facts a { text-decoration: none; border-bottom: 1px solid var(--line); }
+  .loc__facts a:hover { border-color: var(--clay); }
+  @media (min-width: 900px) { .loc { grid-template-columns: 1.25fr 1fr; } }
+</style>

@@ -1,0 +1,97 @@
+---
+/**
+ * GA4 + a delegated event layer.
+ *
+ * Every measurable CTA on the site carries `data-evt` (event name) and
+ * optional `data-cta` / `data-service` / `data-product`. One listener reads
+ * them, so no component ships its own analytics JS.
+ *
+ * If PUBLIC_GA4_ID is unset the gtag script is not loaded, but events are still
+ * pushed to window.dataLayer so the layer stays testable before the property
+ * exists. See docs/ANALYTICS.md.
+ */
+const gaId = import.meta.env.PUBLIC_GA4_ID ?? '';
+const isProd = import.meta.env.PROD;
+---
+
+{gaId && isProd && (
+  <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+)}
+
+<script is:inline define:vars={{ gaId, isProd }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+
+  if (gaId && isProd) {
+    gtag('js', new Date());
+    // send_page_view is left on: one page_view per page load, no duplicates.
+    gtag('config', gaId, { anonymize_ip: true });
+  }
+
+  /** Fire a business event. Always hits dataLayer; hits GA4 when configured. */
+  function track(name, params) {
+    var payload = Object.assign(
+      {
+        page_path: location.pathname,
+        language: document.documentElement.lang || 'en',
+      },
+      params || {}
+    );
+    if (gaId && isProd) gtag('event', name, payload);
+    else window.dataLayer.push(Object.assign({ event: name }, payload));
+    if (!isProd) console.info('[analytics]', name, payload);
+  }
+  window.orchardTrack = track;
+
+  // ---- delegated CTA tracking -------------------------------------------
+  document.addEventListener(
+    'click',
+    function (e) {
+      var el = e.target instanceof Element ? e.target.closest('a,button') : null;
+      if (!el) return;
+
+      var params = {};
+      if (el.dataset.cta) params.cta_location = el.dataset.cta;
+      if (el.dataset.service) params.service = el.dataset.service;
+      if (el.dataset.product) params.product = el.dataset.product;
+
+      if (el.dataset.evt) { track(el.dataset.evt, params); return; }
+
+      // Implicit events for contact links that carry no explicit data-evt.
+      var href = el.getAttribute('href') || '';
+      if (href.startsWith('tel:')) track('phone_click', params);
+      else if (href.startsWith('mailto:')) track('email_click', params);
+      else if (href.indexOf('wa.me') > -1) track('order_whatsapp_click', params);
+      else if (href.indexOf('instagram.com') > -1) track('instagram_click', params);
+      else if (href.indexOf('google.com/maps') > -1 || href.indexOf('maps.app.goo.gl') > -1)
+        track('directions_click', params);
+    },
+    { passive: true }
+  );
+
+  // ---- product_view: fires once per product block when it is seen --------
+  // This script runs in <head>, so wait for the DOM before querying for the
+  // product blocks — otherwise the observer is attached to nothing.
+  function observeProducts() {
+    if (!('IntersectionObserver' in window)) return;
+    var seen = new WeakSet();
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting || seen.has(entry.target)) return;
+          seen.add(entry.target);
+          track('product_view', { product: entry.target.dataset.product });
+          io.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.5 }
+    );
+    document.querySelectorAll('[data-product-view]').forEach(function (n) { io.observe(n); });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', observeProducts);
+  } else {
+    observeProducts();
+  }
+</script>

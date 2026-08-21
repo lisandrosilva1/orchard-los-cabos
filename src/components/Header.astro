@@ -1,0 +1,97 @@
+---
+import Logo from './Logo.astro';
+import { nav, whatsappUrl } from '../data/site';
+
+const path = Astro.url.pathname;
+const order = whatsappUrl(
+  "Hi Orchard — I'd like to order farm products. Could you send me what's available and today's pricing?"
+);
+---
+<header class="hdr">
+  <div class="hdr__bar wrap">
+    <a href="/" class="hdr__logo" aria-label="Orchard Los Cabos — home"><Logo /></a>
+
+    <nav class="hdr__nav" aria-label="Primary">
+      {nav.map((item) => (
+        <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
+      ))}
+    </nav>
+
+    <a class="btn btn--primary hdr__cta" href={order} target="_blank" rel="noopener"
+       data-evt="order_whatsapp_click" data-cta="header">Order</a>
+
+    <details class="hdr__menu">
+      <summary aria-label="Menu">
+        <span class="hdr__burger" aria-hidden="true"><i></i><i></i><i></i></span>
+      </summary>
+      <div class="hdr__panel">
+        <nav aria-label="Mobile">
+          {nav.map((item) => (
+            <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
+          ))}
+        </nav>
+        <a class="btn btn--primary" href={order} target="_blank" rel="noopener"
+           data-evt="order_whatsapp_click" data-cta="mobile_menu">Order on WhatsApp</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    position: sticky; top: 0; z-index: 60;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .hdr__bar { display: flex; align-items: center; gap: 1.5rem; min-height: 72px; }
+  .hdr__logo { text-decoration: none; color: var(--ink); margin-right: auto; padding-block: 0.5rem; }
+
+  .hdr__nav { display: none; gap: 1.85rem; }
+  .hdr__nav a {
+    font-size: var(--t-small); text-decoration: none; color: var(--ink-soft);
+    padding-block: 0.35rem; border-bottom: 1px solid transparent;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .hdr__nav a:hover { color: var(--ink); border-color: var(--line); }
+  .hdr__nav a[aria-current='page'] { color: var(--ink); border-color: var(--clay); }
+  .hdr__cta { display: none; padding: 0.7rem 1.25rem; min-height: 44px; }
+
+  /* ---- mobile disclosure: native <details>, no JavaScript ---- */
+  .hdr__menu summary {
+    list-style: none; cursor: pointer;
+    width: 48px; height: 48px; display: grid; place-items: center;
+    margin-right: -0.5rem; border-radius: var(--radius);
+  }
+  .hdr__menu summary::-webkit-details-marker { display: none; }
+  .hdr__burger { display: grid; gap: 5px; width: 22px; }
+  .hdr__burger i { display: block; height: 1.5px; background: var(--ink); transition: transform 0.24s var(--ease), opacity 0.2s var(--ease); }
+  .hdr__menu[open] .hdr__burger i:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hdr__menu[open] .hdr__burger i:nth-child(2) { opacity: 0; }
+  .hdr__menu[open] .hdr__burger i:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .hdr__panel {
+    position: absolute; left: 0; right: 0; top: 100%;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+    padding: 0.75rem var(--pad-x) 1.75rem;
+    display: grid; gap: 0.25rem;
+    /* The offset+spread makes a scrim that starts at the panel's top edge and
+       covers the page below it, so the menu never reads as merged with the
+       content behind it. Pure CSS: no overlay element, no JS. */
+    box-shadow: 0 18px 40px -28px rgba(34, 32, 28, 0.5), 0 50vh 0 50vh rgba(34, 32, 28, 0.34);
+  }
+  .hdr__panel nav { display: grid; }
+  .hdr__panel nav a {
+    font-family: var(--display); font-size: 1.35rem;
+    text-decoration: none; padding: 0.75rem 0; min-height: 48px;
+    display: flex; align-items: center;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .hdr__panel nav a[aria-current='page'] { color: var(--clay); }
+  .hdr__panel .btn { margin-top: 1.25rem; justify-content: center; }
+
+  @media (min-width: 900px) {
+    .hdr__nav, .hdr__cta { display: flex; }
+    .hdr__menu { display: none; }
+  }
+</style>
