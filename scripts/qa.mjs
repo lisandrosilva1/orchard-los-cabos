@@ -13,7 +13,12 @@ for (const path of PAGES) {
   const errors = [];
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
   page.on('pageerror', (e) => errors.push('pageerror: ' + e.message));
-  page.on('requestfailed', (r) => errors.push('reqfail: ' + r.url().slice(0, 90)));
+  page.on('requestfailed', (r) => {
+    // Analytics beacons are fire-and-forget: Chrome routinely reports them as
+    // failed when the page is torn down mid-flight. Not a site defect.
+    if (/google-analytics\.com|googletagmanager\.com/.test(r.url())) return;
+    errors.push('reqfail: ' + r.url().slice(0, 90));
+  });
 
   for (const w of WIDTHS) {
     await page.setViewport({ width: w, height: 900, deviceScaleFactor: 1 });

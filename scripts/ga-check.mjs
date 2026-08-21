@@ -6,7 +6,7 @@ import puppeteer from 'puppeteer-core';
  *   2. clicking a CTA actually reaches Google Analytics with its parameters
  */
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const PROD_ARGS = ['--host-resolver-rules=MAP www.orchardcabo.com 185.199.108.153'];
+const PROD_ARGS = ['--host-resolver-rules=MAP www.orchardcabo.com 185.199.108.153,MAP orchardcabo.com 185.199.108.153'];
 
 async function run(label, url, args, clickCtas) {
   const b = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox', ...args] });
@@ -50,7 +50,7 @@ async function run(label, url, args, clickCtas) {
   return { tagLoaded, count: events.length };
 }
 
-const prod = await run('PRODUCTION host (www.orchardcabo.com -> GitHub Pages)', 'http://www.orchardcabo.com/farm-products/', PROD_ARGS, true);
+const prod = await run('PRODUCTION (https://www.orchardcabo.com)', 'https://www.orchardcabo.com/farm-products/', PROD_ARGS, true);
 const prev = await run('PREVIEW host (lisandrosilva1.github.io)', 'https://lisandrosilva1.github.io/orchard-preview/farm-products/', [], true);
 
 console.log('\n' + (prod.tagLoaded && prod.count > 0 && !prev.tagLoaded && prev.count === 0

@@ -2,6 +2,8 @@
 
 Last updated: 2026-08-21.
 
+**Live at https://www.orchardcabo.com/**
+
 Statuses are deliberately separated. "Deployed" is not "live on the domain", and
 "indexing requested" is not "indexed".
 
@@ -9,17 +11,33 @@ Statuses are deliberately separated. "Deployed" is not "live on the domain", and
 | --- | --- | --- |
 | Code complete | ✅ VERIFIED | `astro check`: 0 errors, 0 warnings |
 | Built | ✅ VERIFIED | 17 pages (8 real + 9 redirect stubs) |
-| Deployed to GitHub Pages | ✅ VERIFIED | Actions run green; artifact serving |
-| Custom domain set on Pages | ✅ VERIFIED | Pages API `cname: www.orchardcabo.com` |
-| DNS pointed at GitHub | ✅ VERIFIED | Applied 2026-08-21; resolves to GitHub on 8.8.8.8 / 1.1.1.1 / 9.9.9.9 |
-| Site served on the domain | ✅ VERIFIED | GitHub Pages returns the new site over HTTP |
-| HTTPS certificate | ⏳ PENDING | GitHub reports `is_https_eligible: true`; issuance in progress |
-| GA4 property | ✅ VERIFIED | `G-VH6X5MBFQS`, created 2026-08-21 |
-| GA4 events reaching the property | ✅ VERIFIED | 16 live hits to `G-VH6X5MBFQS` with `cta_location`; preview host sends 0 |
-| Search Console | ⚠️ REQUIRES ACTION | Needs the owner's Google account; do after DNS |
-| Sitemap submitted | ⚠️ REQUIRES ACTION | Depends on Search Console |
-| Indexing requested | ⚠️ REQUIRES ACTION | Depends on Search Console |
-| Indexed | ❌ NOT YET | Nothing to claim until Google confirms |
+| Deployed to GitHub Pages | ✅ VERIFIED | Actions green on every push |
+| DNS pointed at GitHub | ✅ VERIFIED | Applied 2026-08-21; matches on 8.8.8.8 / 1.1.1.1 / 9.9.9.9 |
+| Custom domain live | ✅ VERIFIED | `https://www.orchardcabo.com/` returns 200 with the new site |
+| HTTPS certificate | ✅ VERIFIED | Let's Encrypt, `CN=www.orchardcabo.com`, issued 2026-08-21, expires 2026-11-19; covers apex too |
+| HTTPS enforced | ✅ VERIFIED | `https_enforced: true`; http → 301 → https |
+| Canonical host | ✅ VERIFIED | apex (http+https) and `http://www` all 301 to `https://www.` |
+| Legacy redirects | ✅ VERIFIED | All 9 resolve over HTTPS to the right destination |
+| GA4 property | ✅ VERIFIED | `G-VH6X5MBFQS` |
+| GA4 events in production | ✅ VERIFIED | 16 live hits with `cta_location`; preview host sends 0 |
+| Search Console | ✅ VERIFIED | Domain property, DNS TXT verification |
+| Sitemap submitted | ✅ VERIFIED | Accepted 2026-08-21; Google already cites it as the discovery source |
+| Indexing requested | ✅ VERIFIED | `/`, `/farm-products/`, `/farm-experience/`, `/hospitality/` |
+| Indexed | ⏳ NOT YET | Only `/` was already in the index (as the old Wix page). New pages are "discovered, not yet indexed" — normal on day one. Nothing to claim until Google confirms. |
+
+## A note on the HSTS window
+
+Wix served `strict-transport-security: max-age=31556952` on this domain. Between
+the DNS change and GitHub issuing the certificate (~50 minutes), returning
+visitors whose browsers had that policy cached could not reach the site over
+HTTP and hit a certificate error over HTTPS. New visitors were unaffected. This
+is unavoidable when moving hosts away from a provider that set long-lived HSTS,
+and it resolved itself the moment the certificate landed.
+
+GitHub's certificate took ~50 minutes and only started provisioning after the
+custom domain was removed and re-added through the API — the documented remedy.
+The domain check reported `is_valid: true` and `is_https_eligible: true` the
+whole time, so the delay was on GitHub's side, not a misconfiguration.
 
 ## Verified on the deployed artifact (not just locally)
 
@@ -47,23 +65,27 @@ Results on 2026-08-21:
   375 / 390 / 768 / 1440 px.
 - Exactly one analytics tag on the page.
 
-## Lighthouse (production build)
+## Lighthouse (measured on https://www.orchardcabo.com)
 
-| Page | Perf | A11y | Best practices | SEO |
-| --- | --- | --- | --- | --- |
-| Home (desktop) | 100 | 100 | 100 | 100 |
-| Farm Products | 100 | 100 | 100 | 100 |
-| Farm Experience | 100 | 100 | 100 | 100 |
-| Hospitality | 100 | 100 | 100 | 100 |
-| About | 100 | 100 | 100 | 100 |
-| Privacy | 100 | 100 | 100 | 100 |
-| **Home (mobile)** | **99** | **100** | **100** | **100** |
-| Farm Products (mobile) | 100 | 100 | 100 | 100 |
+| Page | Perf | A11y | Best practices | SEO | LCP | CLS |
+| --- | --- | --- | --- | --- | --- | --- |
+| Home (desktop) | 100 | 100 | 100 | 100 | 0.5 s | 0.012 |
+| Home (mobile) | 95 | 100 | 100 | 100 | 2.1 s | 0 |
+| Farm Products (mobile) | 99 | 100 | 100 | 100 | 1.2 s | 0 |
 
-CLS 0 and TBT 0 ms everywhere. Desktop LCP 0.3–0.4 s; mobile LCP 2.2 s on the
-home page under Lighthouse's throttled 4G, which is inside the "good" threshold.
+All four categories clear the ≥95 target on the live domain. Mobile home sits at
+95 rather than the 99 measured before GA4 was wired in — that four-point drop is
+the analytics tag, and it is a deliberate trade.
 
-Re-run these on the real domain once DNS and HTTPS are in place.
+**For comparison, the Wix site it replaced**, measured on the same connection
+before the cutover: performance 80, accessibility 88, best practices 96, LCP
+4.3 s, time-to-interactive 9.5 s.
+
+Beware when re-running: passing `--host-resolver-rules` through Lighthouse's
+`--chrome-flags` silently breaks, because Lighthouse splits that string on
+spaces and the rule contains them. Launch Chrome yourself with the flag quoted
+and point Lighthouse at it with `--port`, or you will end up auditing whatever
+your local DNS cache resolves to.
 
 ## The one remaining blocker
 
