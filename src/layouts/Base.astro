@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Analytics from '../components/Analytics.astro';
 import WhatsAppFab from '../components/WhatsAppFab.astro';
-import { site, contact } from '../data/site';
+import { site, contact, socialLinks } from '../data/site';
 
 interface Props {
   title: string;
@@ -53,6 +53,7 @@ const graph: Record<string, unknown>[] = [
       { '@type': 'AdministrativeArea', name: 'Los Cabos' },
     ],
     knowsLanguage: ['en', 'es'],
+    ...(socialLinks.length ? { sameAs: socialLinks.map((s) => s.href) } : {}),
   },
   {
     '@type': 'WebSite',

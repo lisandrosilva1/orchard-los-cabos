@@ -1,6 +1,6 @@
 ---
 import Logo from './Logo.astro';
-import { contact, nav, whatsappUrl } from '../data/site';
+import { contact, nav, whatsappUrl, socialLinks } from '../data/site';
 
 const year = new Date().getFullYear();
 const order = whatsappUrl("Hi Orchard — I'd like to order farm products.");
@@ -32,6 +32,18 @@ const order = whatsappUrl("Hi Orchard — I'd like to order farm products.");
         <p class="ftr__where">
           {contact.city}, {contact.region}<br />{contact.country}
         </p>
+
+        {socialLinks.length > 0 && (
+          <ul class="ftr__social">
+            {socialLinks.map((s) => (
+              <li>
+                <a href={s.href} target="_blank" rel="noopener" data-evt={s.evt} data-cta="footer">
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
 
@@ -62,6 +74,7 @@ const order = whatsappUrl("Hi Orchard — I'd like to order farm products.");
   }
   .ftr__nav a:hover, .ftr__contact a:hover { color: var(--ink); border-color: var(--clay-ink); }
   .ftr__where { font-size: var(--t-small); color: var(--ink-mute); margin-top: 0.5rem; }
+  .ftr__social { list-style: none; padding: 0; margin: 0.4rem 0 0; display: flex; flex-wrap: wrap; gap: 1rem; }
 
   .ftr__bottom {
     display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem;

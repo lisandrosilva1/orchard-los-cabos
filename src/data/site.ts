@@ -39,6 +39,27 @@ export function whatsappUrl(message: string): string {
   return `https://wa.me/${contact.whatsappDigits}?text=${encodeURIComponent(message)}`;
 }
 
+/**
+ * Social accounts. Only verified, live accounts belong here — a dead link in
+ * the footer is worse than no link. Instagram was confirmed live on 2026-08-21
+ * (302 followers, bio links back to orchardcabo.com).
+ *
+ * Facebook: the owner reports a page named "Orchard Los Cabos" but the URL is
+ * not yet confirmed; facebook.com/orchardloscabos is not a public page. Add the
+ * real URL here and it appears in the footer and in the JSON-LD automatically.
+ */
+export const social = {
+  instagram: 'https://www.instagram.com/naturaorchardcabo/',
+  instagramHandle: '@naturaorchardcabo',
+  facebook: null as string | null,
+} as const;
+
+/** Live social profiles, for schema.org sameAs and the footer. */
+export const socialLinks: { label: string; href: string; evt: string }[] = [
+  ...(social.instagram ? [{ label: 'Instagram', href: social.instagram, evt: 'instagram_click' }] : []),
+  ...(social.facebook ? [{ label: 'Facebook', href: social.facebook, evt: 'facebook_click' }] : []),
+];
+
 export const nav = [
   { href: '/farm-products/', label: 'Farm Products' },
   { href: '/farm-experience/', label: 'Farm Experience' },
