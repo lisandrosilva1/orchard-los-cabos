@@ -2,7 +2,7 @@ import puppeteer from 'puppeteer-core';
 const CHROME='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const BASE=process.env.QA_BASE||'http://localhost:4330';
 const PAGES=['/','/farm-products/','/farm-experience/','/hospitality/','/about/','/privacy/','/thank-you/'];
-const b=await puppeteer.launch({executablePath:CHROME,headless:'new',args:['--no-sandbox']});
+const b=await puppeteer.launch({executablePath:CHROME,headless:'new',args:['--no-sandbox',...(process.env.QA_CHROME_ARGS?process.env.QA_CHROME_ARGS.split('||'):[])]});
 const titles=new Map(),descs=new Map(); const issues=[];
 const internal=new Set(); const externals=new Set();
 
@@ -63,14 +63,19 @@ for(const path of PAGES){
   await p.close();
 }
 
-// internal link check
+// Internal link check, driven through the browser so it honours the same
+// host-resolver mapping used to test a deployment before DNS points at it.
 console.log('\n── internal links');
-for(const href of [...internal].sort()){
-  const url=BASE+href;
-  const r=await fetch(url).catch(()=>null);
-  const ok=r&&r.ok;
-  if(!ok) issues.push(`BROKEN INTERNAL LINK: ${href} -> ${r?r.status:'ERR'}`);
-  console.log(`   ${ok?'✓':'✗'} ${href} ${r?r.status:''}`);
+{
+  const lp=await b.newPage();
+  for(const href of [...internal].sort()){
+    let status='ERR';
+    try{ const resp=await lp.goto(BASE+href,{waitUntil:'domcontentloaded'}); status=resp?resp.status():'ERR'; }catch(e){ status='ERR'; }
+    const ok=status===200;
+    if(!ok) issues.push(`BROKEN INTERNAL LINK: ${href} -> ${status}`);
+    console.log(`   ${ok?'✓':'✗'} ${href} ${status}`);
+  }
+  await lp.close();
 }
 console.log('\n── external link hosts');
 [...externals].forEach(e=>console.log('   '+e));

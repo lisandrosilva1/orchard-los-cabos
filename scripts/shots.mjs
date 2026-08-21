@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer-core';
 const CHROME='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const BASE=process.env.QA_BASE||'http://localhost:4330';
-const b=await puppeteer.launch({executablePath:CHROME,headless:'new',args:['--no-sandbox']});
+const b=await puppeteer.launch({executablePath:CHROME,headless:'new',args:['--no-sandbox',...(process.env.QA_CHROME_ARGS?process.env.QA_CHROME_ARGS.split('||'):[])]});
 const jobs=JSON.parse(process.argv[2]);
 for(const j of jobs){
   const p=await b.newPage();

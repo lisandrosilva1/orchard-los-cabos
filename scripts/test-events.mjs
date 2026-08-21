@@ -1,13 +1,13 @@
 import puppeteer from 'puppeteer-core';
 const CHROME='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const BASE=process.env.QA_BASE||'http://localhost:4330';
-const b=await puppeteer.launch({executablePath:CHROME,headless:'new',args:['--no-sandbox']});
+const b=await puppeteer.launch({executablePath:CHROME,headless:'new',args:['--no-sandbox',...(process.env.QA_CHROME_ARGS?process.env.QA_CHROME_ARGS.split('||'):[])]});
 const p=await b.newPage();
 await p.setViewport({width:1280,height:900});
 
 // Stop navigation/new tabs so clicks only produce analytics.
 await p.setRequestInterception(true);
-p.on('request',r=>{ const u=r.url(); if(u.startsWith('http://localhost:4330')||u.startsWith('data:')) r.continue(); else r.abort(); });
+p.on('request',r=>{ const u=r.url(); if(u.startsWith(BASE)||u.startsWith('data:')) r.continue(); else r.abort(); });
 
 const results=[];
 for(const path of ['/','/farm-products/','/farm-experience/','/hospitality/']){

@@ -5,7 +5,7 @@ const BASE = process.env.QA_BASE || 'http://localhost:4330';
 const PAGES = ['/', '/farm-products/', '/farm-experience/', '/hospitality/', '/about/', '/privacy/', '/thank-you/', '/404.html'];
 const WIDTHS = [375, 390, 768, 1440];
 
-const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox'] });
+const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox', ...(process.env.QA_CHROME_ARGS ? process.env.QA_CHROME_ARGS.split('||') : [])] });
 let problems = 0;
 
 for (const path of PAGES) {
