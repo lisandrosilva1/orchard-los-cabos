@@ -24,10 +24,13 @@
   --paper-warm: #f2ece1;
   --ink: #22201c;
   --ink-soft: #55504a;
-  --ink-mute: #7b7469;
+  --ink-mute: #6b6459;
   --green: #55624e;
   --green-deep: #333c31;
   --clay: #9d5c39;
+  /* Clay is AA on --paper but not on --paper-deep, so small text uses this
+     darker step. --clay stays the button fill (white on it is 5.2:1). */
+  --clay-ink: #84492b;
   --clay-soft: #b98a68;
   --shell: #c3d2cb;
   --line: rgba(34, 32, 28, 0.14);
@@ -164,7 +167,7 @@ a { color: inherit; }
   border-bottom: 1px solid var(--line);
   transition: border-color 0.22s var(--ease);
 }
-.link:hover { border-color: var(--clay); }
+.link:hover { border-color: var(--clay-ink); }
 .link svg { transition: transform 0.22s var(--ease); }
 .link:hover svg { transform: translateX(3px); }
 

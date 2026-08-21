@@ -54,7 +54,7 @@ const order = whatsappUrl(
     transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
   }
   .hdr__nav a:hover { color: var(--ink); border-color: var(--line); }
-  .hdr__nav a[aria-current='page'] { color: var(--ink); border-color: var(--clay); }
+  .hdr__nav a[aria-current='page'] { color: var(--ink); border-color: var(--clay-ink); }
   .hdr__cta { display: none; padding: 0.7rem 1.25rem; min-height: 44px; }
 
   /* ---- mobile disclosure: native <details>, no JavaScript ---- */
@@ -87,7 +87,7 @@ const order = whatsappUrl(
     display: flex; align-items: center;
     border-bottom: 1px solid var(--line-soft);
   }
-  .hdr__panel nav a[aria-current='page'] { color: var(--clay); }
+  .hdr__panel nav a[aria-current='page'] { color: var(--clay-ink); }
   .hdr__panel .btn { margin-top: 1.25rem; justify-content: center; }
 
   @media (min-width: 900px) {

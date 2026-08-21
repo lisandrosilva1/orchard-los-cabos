@@ -296,14 +296,14 @@ const areas = [
   /* ---- three areas ---- */
   .areas { list-style: none; padding: 0; margin: 2.5rem 0 0; border-top: 1px solid var(--line); }
   .area { display: grid; gap: 0.25rem 2rem; padding-block: clamp(1.75rem, 1.2rem + 2vw, 2.75rem); border-bottom: 1px solid var(--line); }
-  .area__n { font-family: var(--display); font-size: var(--t-small); color: var(--clay); letter-spacing: 0.1em; }
+  .area__n { font-family: var(--display); font-size: var(--t-small); color: var(--clay-ink); letter-spacing: 0.1em; }
   .area h3 { font-size: var(--t-h3); }
   .area h3 a { text-decoration: none; }
   .area h3 a::after { content: ''; position: absolute; inset: 0; }
   .area { position: relative; }
   .area p { margin-top: 0.7rem; color: var(--ink-soft); max-width: 54ch; }
   .area__cta { margin-top: 1.1rem; color: var(--ink); border-color: var(--line); }
-  .area:hover .area__cta { border-color: var(--clay); }
+  .area:hover .area__cta { border-color: var(--clay-ink); }
   @media (min-width: 800px) { .area { grid-template-columns: 5rem 1fr; } }
 
   /* ---- feature blocks ---- */
@@ -333,6 +333,6 @@ const areas = [
   .loc__facts dt { font-size: var(--t-micro); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); }
   .loc__facts dd { margin: 0.35rem 0 0; font-size: var(--t-body); }
   .loc__facts a { text-decoration: none; border-bottom: 1px solid var(--line); }
-  .loc__facts a:hover { border-color: var(--clay); }
+  .loc__facts a:hover { border-color: var(--clay-ink); }
   @media (min-width: 900px) { .loc { grid-template-columns: 1.25fr 1fr; } }
 </style>
