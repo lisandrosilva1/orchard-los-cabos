@@ -4,7 +4,7 @@ import Photo from '../components/Photo.astro';
 import CtaBand from '../components/CtaBand.astro';
 import PageHeader from '../components/PageHeader.astro';
 import { whatsappUrl } from '../data/site';
-import { eggExperience } from '../data/pricing';
+import { eggExperience, schoolProgramme } from '../data/pricing';
 
 import cartonImg from '../assets/images/egg-carton-on-grass.jpg';
 
@@ -122,10 +122,17 @@ const stations = [
           <p>
             Students learn the life cycle of the birds, where eggs and poultry come from,
             what natural feed is, and how the animals are cared for. Printed support
-            material goes home with them, along with a dozen eggs each.
+            material goes home with them, along with a dozen eggs each that they
+            collected themselves.
+          </p>
+          <p>
+            <strong>${schoolProgramme.perStudent} MXN per student</strong>, including the
+            guided visit, feed for the birds, the prize round, lunch, use of the park
+            and the eggs each child takes home.
           </p>
         </div>
         <ul class="specs">
+          <li><span>Price</span><span>${schoolProgramme.perStudent} MXN per student</span></li>
           <li><span>Duration</span><span>About 3 hours 15 minutes</span></li>
           <li><span>Group size</span><span>Built for 15–30 students</span></li>
           <li><span>Minimum</span><span>15 students</span></li>

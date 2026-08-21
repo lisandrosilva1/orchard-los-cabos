@@ -49,6 +49,17 @@ export const eggExperience = {
   note: 'Adults, and children accompanied by an adult. By appointment.',
 } as const;
 
+/**
+ * School programme. The old Wix page listed "$550 MXN por alumno o $600 pesos"
+ * — two prices for one product, which is why nothing was published at launch.
+ * The owner confirmed $550 per student on 2026-08-21.
+ */
+export const schoolProgramme = {
+  perStudent: 550,
+  currency: 'MXN',
+  includes: 'a dozen eggs each, collected during the visit',
+} as const;
+
 export const offers: { title: string; body: string }[] = [
   {
     title: '10% off standing deliveries',

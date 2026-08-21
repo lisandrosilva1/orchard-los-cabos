@@ -128,32 +128,43 @@ typography and space carry the pages that have no image — but real photographs
 those subjects would materially improve it. No AI imagery was generated to fill
 the gap, and none should be. A suggested shot list is in the handoff report.
 
-## 8. Open conflicts across the business's own channels (2026-08-21)
+## 8. Cross-channel conflicts (raised and resolved 2026-08-21)
 
-The Facebook page and the Google Business Profile were found after launch. Both
-carry business facts, and they do not fully agree with each other or with the
-site. The owner confirmed items 1–3; items 4–5 are **unresolved** and are
-deliberately not guessed at on the site.
+The Facebook page, the Google Business Profile and a current price list all
+surfaced after launch. Each carried business facts, and they disagreed with each
+other and with the site. Every one was put to the owner rather than guessed at.
 
-| # | Fact | Website | Facebook page | Google Business Profile | Status |
-| --- | --- | --- | --- | --- | --- |
-| 1 | Pickup | ~~By appointment~~ → **Daily 9am–4pm at the farm** | "Recoge diario 9–5" | "Cierra a las 5 p.m." | ✅ Owner: **9am–4pm daily, farm only**. Site updated. Facebook and Google still say 5pm. |
-| 2 | Delivery | ~~"Across Los Cabos"~~ → **Every Tuesday** | "Entregas mar/jue" | — | ✅ Owner: **Tuesdays**. Site updated. Facebook still says Tue/Thu. |
-| 3 | Email | `huizahesanjose@gmail.com` | `razzielhall@live.com.mx` | — | ✅ Owner: use the Gmail. Facebook differs. |
-| 4 | **Phone** | 624 217 0064 | 624 217 0064 | **624 119 8107** | ❌ **UNRESOLVED.** Two different numbers. The site keeps 624 217 0064 (two sources agree, and it is the WhatsApp number the owner confirmed). |
-| 5 | **Location name** | "Mango Fields area" | "cerca del Palenque de San Bernabé"; "Villa Bonita, Costa Dorada, San Carlos" | "Agua Verde, Buenos Aires, 23436" | ❌ **UNRESOLVED.** The site keeps the Mango Fields wording, which came from the old Wix copy. |
-| 6 | Product range | Whole poultry | "Pollo local **y cortes**", frozen same day | — | ⏳ Owner is sending a full price list; chicken cuts are not yet on the site. |
+| # | Fact | Was on the site | Resolved to | Status |
+| --- | --- | --- | --- | --- |
+| 1 | Pickup | "By appointment" | **Daily, 9am–5pm, at the farm** | ✅ Site updated. Matches Google and Facebook. |
+| 2 | Delivery | "Across Los Cabos" | **Tuesdays only** | ✅ Site updated. Facebook still says Tue/Thu. |
+| 3 | Email | `huizahesanjose@gmail.com` | Keep the Gmail | ✅ Facebook still shows a different address. |
+| 4 | Phone | 624 217 0064 | **624 217 0064** | ✅ Google Business Profile still shows 624 119 8107 and needs correcting there. |
+| 5 | Location | "Mango Fields area" | **Agua Verde, Buenos Aires, San José del Cabo** | ✅ Site now matches the Google listing exactly, including in the schema. |
+| 6 | Product range | Whole poultry only | **Cuts, stewing hen and broth added** | ✅ Published with prices. |
+| 7 | School price | Nothing published | **$550 MXN per student** | ✅ The old site said "$550 or $600"; the owner confirmed $550. |
 
-**Why this matters beyond tidiness:** Google weighs name/address/phone
-consistency across a business's listings for local ranking. Two different phone
-numbers and two different location descriptions across three properties actively
-work against `farm fresh eggs Los Cabos`-type queries. Resolving items 4 and 5
-is the single highest-value local-SEO action left.
+The "Mango Fields" wording came from the Wix site and was simply wrong. Name,
+address and phone now agree between the website and the Google Business Profile,
+which is what local ranking actually rewards.
 
-The verified Google Business Profile data **is** now used: the exact coordinates
-(23.13483, -109.7065779), the postal code and the listing permalink all appear in
-the LocalBusiness schema, and "Open in Google Maps" points at the real listing.
+## 9. What is deliberately NOT published
 
-No `aggregateRating` was added. The listing shows 5.0 but the review count was
-not visible without signing in, and a rating without a verifiable count is
-exactly the kind of fabricated signal this project refuses to publish.
+**The bank account on the price list.** The owner's flyer carries a bank name, an
+account holder's full name and a 16-digit account number, above a footer reading
+`WWW.ORCHARDCABO.COM`. None of it is on the site or in this repository, which is
+public. The site says transfer details are sent when an order is placed.
+
+A published account number is the raw material for supplier-impersonation fraud:
+the flyer gets forwarded, someone swaps the number, and the customer pays a
+stranger believing they paid the farm. This was flagged to the owner for the
+flyer itself, not just for the website.
+
+**"Orgánico" and "de libre pastoreo" from the price list.** The flyer titles every
+line that way. The prices published are exactly the flyer's; the product names are
+not. See §2 — this is the same rule that governs the rest of the site, and it does
+not get an exception because the words arrived on a different document.
+
+**Any `aggregateRating`.** The Google listing shows 5.0, but the review count was
+not verifiable without signing in. A star rating without a real count is a
+fabricated signal.

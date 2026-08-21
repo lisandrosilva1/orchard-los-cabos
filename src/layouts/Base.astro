@@ -43,6 +43,7 @@ const graph: Record<string, unknown>[] = [
     image: ogUrl,
     address: {
       '@type': 'PostalAddress',
+      streetAddress: contact.streetAddress,
       addressLocality: contact.city,
       addressRegion: contact.regionCode,
       postalCode: contact.postalCode,

@@ -29,8 +29,17 @@ export const contact = {
   regionCode: 'BCS',
   country: 'Mexico',
   countryCode: 'MX',
-  /** Area-level. See docs/CONTENT_AUDIT.md §8 for the open naming question. */
-  areaDescription: 'Mango Fields area, San José del Cabo',
+  /**
+   * Matches the farm's Google Business Profile, which is the record customers
+   * navigate by. The old "Mango Fields area" wording came from the Wix site and
+   * was corrected by the owner on 2026-08-21.
+   *
+   * Spelled out as a neighbourhood in prose: "Buenos Aires" alone reads as
+   * Argentina to an English-speaking visitor.
+   */
+  areaDescription: 'the Buenos Aires neighbourhood of San José del Cabo',
+  areaShort: 'Buenos Aires, San José del Cabo',
+  streetAddress: 'Agua Verde, Buenos Aires',
   nearLandmark: 'minutes from Los Cabos International Airport (SJD)',
   postalCode: '23436',
 } as const;
@@ -44,8 +53,8 @@ export const contact = {
 export const hours = {
   pickupDays: 'Daily',
   pickupOpen: '09:00',
-  pickupClose: '16:00',
-  pickupLabel: 'Every day, 9am–4pm',
+  pickupClose: '17:00',
+  pickupLabel: 'Every day, 9am–5pm',
   deliveryLabel: 'Every Tuesday',
   deliveryDay: 'Tuesday',
 } as const;
@@ -105,7 +114,7 @@ export const nav = [
 export const facts = [
   {
     title: 'Raised in San José del Cabo',
-    body: 'The birds live outdoors under decades-old mango trees on our farm in the Mango Fields area — shade, airflow and room to move.',
+    body: 'The birds live outdoors under decades-old mango trees on our farm in San José del Cabo — shade, airflow and room to move.',
   },
   {
     title: 'Feed milled on the farm',
