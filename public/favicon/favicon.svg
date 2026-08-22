@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Orchard Los Cabos">
-  <rect width="64" height="64" rx="12" fill="#333c31"/>
-  <path d="M32 12c8.6 0 15 10.2 15 20.2C47 42.2 40.3 50 32 50s-15-7.8-15-17.8C17 22.2 23.4 12 32 12z" fill="#f8f4ed"/>
+  <rect width="64" height="64" rx="12" fill="#12120f"/>
+  <path d="M32 12c8.6 0 15 10.2 15 20.2C47 42.2 40.3 50 32 50s-15-7.8-15-17.8C17 22.2 23.4 12 32 12z" fill="#faf9f6"/>
 </svg>
