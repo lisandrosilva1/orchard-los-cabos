@@ -44,18 +44,20 @@ const order = whatsappUrl(
     backdrop-filter: saturate(1.4) blur(10px);
     border-bottom: 1px solid var(--line-soft);
   }
-  .hdr__bar { display: flex; align-items: center; gap: 1.5rem; min-height: 72px; }
+  .hdr__bar { display: flex; align-items: center; gap: 1.5rem; min-height: 80px; }
   .hdr__logo { text-decoration: none; color: var(--ink); margin-right: auto; padding-block: 0.5rem; }
 
-  .hdr__nav { display: none; gap: 1.85rem; }
+  .hdr__nav { display: none; gap: 2.4rem; }
   .hdr__nav a {
-    font-size: var(--t-small); text-decoration: none; color: var(--ink-soft);
+    font-size: var(--t-micro); letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 500;
+    text-decoration: none; color: var(--ink-soft);
     padding-block: 0.35rem; border-bottom: 1px solid transparent;
     transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
   }
   .hdr__nav a:hover { color: var(--ink); border-color: var(--line); }
-  .hdr__nav a[aria-current='page'] { color: var(--ink); border-color: var(--clay-ink); }
-  .hdr__cta { display: none; padding: 0.7rem 1.25rem; min-height: 44px; }
+  .hdr__nav a[aria-current='page'] { color: var(--ink); border-color: var(--green); }
+  .hdr__cta { display: none; padding: 0.8rem 1.6rem; min-height: 44px; }
 
   /* ---- mobile disclosure: native <details>, no JavaScript ---- */
   .hdr__menu summary {
@@ -87,7 +89,7 @@ const order = whatsappUrl(
     display: flex; align-items: center;
     border-bottom: 1px solid var(--line-soft);
   }
-  .hdr__panel nav a[aria-current='page'] { color: var(--clay-ink); }
+  .hdr__panel nav a[aria-current='page'] { color: var(--green); }
   .hdr__panel .btn { margin-top: 1.25rem; justify-content: center; }
 
   @media (min-width: 900px) {
