@@ -36,7 +36,12 @@ async function run(label, url, args, clickCtas) {
       document.querySelectorAll('a').forEach((a) => a.addEventListener('click', (e) => e.preventDefault()));
       document.querySelectorAll('[data-evt]').forEach((el) => el.click());
     });
-    await new Promise((r) => setTimeout(r, 6000));
+    // GA4 batches events on its own timer and flushes on page-hide. Wait long
+    // enough not to report a false negative, then force the flush the way a
+    // real user leaving the page would.
+    await new Promise((r) => setTimeout(r, 9000));
+    await p.evaluate(() => document.dispatchEvent(new Event('visibilitychange')));
+    await new Promise((r) => setTimeout(r, 3000));
   }
   console.log(`\n${label}`);
   console.log(`   gtag.js loaded : ${tagLoaded}`);

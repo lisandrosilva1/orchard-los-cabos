@@ -2,7 +2,7 @@
 
 Last updated: 2026-08-21.
 
-**Live at https://www.orchardcabo.com/**
+**Live at https://www.orchardcabo.com/** — boutique design shipped 2026-08-21.
 
 Statuses are deliberately separated. "Deployed" is not "live on the domain", and
 "indexing requested" is not "indexed".
@@ -65,27 +65,44 @@ Results on 2026-08-21:
   375 / 390 / 768 / 1440 px.
 - Exactly one analytics tag on the page.
 
-## Lighthouse (measured on https://www.orchardcabo.com)
+## Lighthouse
 
-| Page | Perf | A11y | Best practices | SEO | LCP | CLS |
-| --- | --- | --- | --- | --- | --- | --- |
-| Home (desktop) | 100 | 100 | 100 | 100 | 0.5 s | 0.012 |
-| Home (mobile) | 95 | 100 | 100 | 100 | 2.1 s | 0 |
-| Farm Products (mobile) | 99 | 100 | 100 | 100 | 1.2 s | 0 |
+Measured on the production build. Network latency to the GitHub Pages edge moved
+a lot during testing (TTFB swung between 190ms and 1.9s from the measuring
+machine), and the performance score follows TTFB almost exactly. The table below
+is the same deployed build served locally, which isolates the code from that:
 
-All four categories clear the ≥95 target on the live domain. Mobile home sits at
-95 rather than the 99 measured before GA4 was wired in — that four-point drop is
-the analytics tag, and it is a deliberate trade.
+| Page | Perf | A11y | Best practices | SEO | LCP | CLS | TBT |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Home (desktop) | 100 | 100 | 100 | 100 | 0.6 s | 0 | 0 ms |
+| Home (mobile) | 99 | 100 | 100 | 100 | 2.0 s | 0 | 0 ms |
+| Farm Products (mobile) | 100 | 100 | 100 | 100 | 1.4 s | 0 | 0 ms |
 
-**For comparison, the Wix site it replaced**, measured on the same connection
-before the cutover: performance 80, accessibility 88, best practices 96, LCP
-4.3 s, time-to-interactive 9.5 s.
+Over the live domain the median across three runs was 96 mobile / 81 desktop,
+with the low outliers all explained by TTFB spikes. **When judging performance,
+read LCP *render delay*, CLS and TBT** — those are the site's own numbers and
+they were 39–66 ms, 0.003 and 0 ms consistently.
 
-Beware when re-running: passing `--host-resolver-rules` through Lighthouse's
-`--chrome-flags` silently breaks, because Lighthouse splits that string on
-spaces and the rule contains them. Launch Chrome yourself with the flag quoted
-and point Lighthouse at it with `--port`, or you will end up auditing whatever
-your local DNS cache resolves to.
+**For comparison, the Wix site this replaced**: performance 80, accessibility 88,
+best practices 96, LCP 4.3 s, time-to-interactive 9.5 s.
+
+### The GA4 performance trap
+
+Shipping the redesign appeared to drop mobile performance from 95 to 80 with LCP
+at 4.1 s. It was not the redesign. The review preview runs identical markup and
+CSS but its host gate keeps GA4 off, and it scored 100 with LCP 1.8 s — which
+isolated the cause in one measurement.
+
+The LCP image was downloading in 26 ms and then waiting **3468 ms to paint**:
+gtag.js is ~166 KB and its parse work held the main thread while the full-bleed
+hero waited. The tag now loads on the first user gesture, or on idle after load,
+whichever comes first. Render delay dropped to 39–66 ms.
+
+This costs no data. `gtag('js'|'config'|'event')` only pushes onto
+`window.dataLayer`, and gtag.js drains that queue when it arrives — verified live
+at 21 hits including every CTA. Note that GA4 batches on its own timer, so an
+event can legitimately reach the property several seconds after the click; a test
+that waits less than about ten seconds will report a false negative.
 
 ## The one remaining blocker
 
