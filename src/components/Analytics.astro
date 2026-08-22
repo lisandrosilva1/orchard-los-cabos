@@ -42,15 +42,29 @@ const analyticsHost = 'orchardcabo.com';
     // pushes onto window.dataLayer, and gtag.js drains that queue when it
     // arrives — so page_view and any click that happens in the meantime are
     // all still recorded, just sent a moment later.
+    var tagLoaded = false;
     var loadTag = function () {
+      if (tagLoaded) return;
+      tagLoaded = true;
       var s = document.createElement('script');
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
       document.head.appendChild(s);
     };
+
+    // Load on the FIRST of: any user gesture, or the browser going idle after
+    // load. The gesture listeners are attached immediately and capture-first,
+    // so a click starts the download before our own click handler has even
+    // queued its event — which keeps the queue short. Without them, a measured
+    // click sat in dataLayer for seven seconds waiting for the idle callback,
+    // and anyone closing the tab in that window would not have been counted.
+    ['pointerdown', 'touchstart', 'keydown', 'scroll'].forEach(function (evt) {
+      window.addEventListener(evt, loadTag, { once: true, passive: true, capture: true });
+    });
+
     var schedule = function () {
       if ('requestIdleCallback' in window) requestIdleCallback(loadTag, { timeout: 3000 });
-      else setTimeout(loadTag, 1200);
+      else setTimeout(loadTag, 1500);
     };
     if (document.readyState === 'complete') schedule();
     else window.addEventListener('load', schedule, { once: true });
