@@ -15,12 +15,18 @@ no CMS, no database, no authentication, no admin panel. It is a static site.
 | Framework | Astro 5 (static output) | Ships HTML and almost no JS |
 | Language | TypeScript (strict) | Business data is typed in `src/data/` |
 | Styles | Hand-written CSS with custom properties | One design system, no framework weight |
+| Type | Cormorant + Jost, self-hosted variable, Latin subset | 62 KB total; deliberately shares nothing with the Discovery Network system |
 | Images | `astro:assets` `<Picture>` | AVIF + WebP + JPEG, responsive, no CLS |
 | Hosting | GitHub Pages | Free, static, custom domain, no server to run |
 | Analytics | GA4 via a delegated event layer | See `docs/ANALYTICS.md` |
 
-Client-side JavaScript on a page: one small inline analytics script. The mobile
-menu is a native `<details>` element and ships no JS at all.
+Client-side JavaScript on a page: a small inline analytics script, a header
+scroll-state toggle and a scroll-reveal observer. The mobile menu is a native
+`<details>` element and ships no JS at all.
+
+The reveal is gated behind a `.js` class on `<html>`, so content is never left
+hidden if scripting fails. See `docs/BRAND.md` for the visual system and for why
+this site must not resemble the Los Cabos Discovery Network.
 
 ## Getting started
 

@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHeader from '../components/PageHeader.astro';
+
 import { contact, site } from '../data/site';
 const updated = 'August 2026';
 ---
@@ -9,14 +9,20 @@ const updated = 'August 2026';
   description="What this website collects, what it does not, and how to reach Orchard Los Cabos about it."
   breadcrumb={[{ name: 'Privacy', href: '/privacy/' }]}
 >
-  <PageHeader
-    eyebrow="Privacy"
-    title="What this site collects."
-    lead="Short version: no accounts, no forms, no newsletter, no advertising trackers. Anonymous traffic measurement, and whatever you choose to tell us when you message the farm."
-  />
+  <section class="opener bay">
+    <div class="shell">
+      <span class="eyebrow">Privacy</span>
+      <h1>What this site collects.</h1>
+      <p class="lead opener__lead">
+        Short version: no accounts, no forms, no newsletter, no advertising trackers.
+        Anonymous traffic measurement, and whatever you choose to tell us when you message
+        the farm.
+      </p>
+    </div>
+  </section>
 
-  <section class="section">
-    <div class="wrap narrow prose">
+  <section class="bay--tight">
+    <div class="shell prose">
       <p><em>Last updated: {updated}</em></p>
 
       <h2>Who we are</h2>
@@ -87,3 +93,9 @@ const updated = 'August 2026';
     </div>
   </section>
 </Base>
+
+<style>
+  .opener { padding-top: calc(88px + var(--bay)); border-bottom: 1px solid var(--line-d-soft); }
+  .opener h1 { font-size: var(--t-h1); max-width: 15ch; }
+  .opener__lead { margin-top: 1.6rem; }
+</style>

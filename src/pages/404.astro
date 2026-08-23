@@ -1,19 +1,24 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHeader from '../components/PageHeader.astro';
+
 ---
 <Base
   title="Page not found | Orchard Los Cabos"
   description="That page is not here. Find farm products, farm visits and hospitality supply from Orchard Los Cabos."
   noindex
 >
-  <PageHeader
-    eyebrow="404"
-    title="That page isn't here."
-    lead="It may have been retired when we rebuilt the site. Everything Orchard does is one of these four."
-  />
-  <section class="section">
-    <div class="wrap">
+  <section class="opener bay">
+    <div class="shell">
+      <span class="eyebrow">404</span>
+      <h1>That page isn&rsquo;t here.</h1>
+      <p class="lead opener__lead">
+        It may have been retired when we rebuilt the site. Everything Orchard does is one of
+        these four.
+      </p>
+    </div>
+  </section>
+  <section class="bay--tight">
+    <div class="shell">
       <ul class="nf">
         <li><a href="/farm-products/">Farm Products</a><span>Eggs, poultry, feed and fertiliser</span></li>
         <li><a href="/farm-experience/">Farm Experience</a><span>Family and school visits</span></li>

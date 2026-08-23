@@ -7,30 +7,28 @@ const order = whatsappUrl(
   "Hi Orchard — I'd like to order farm products. Could you send me what's available and today's pricing?"
 );
 ---
-<header class="hdr">
-  <div class="hdr__bar wrap">
+<header class="hdr" data-hdr>
+  <div class="hdr__in shell">
     <a href="/" class="hdr__logo" aria-label="Orchard Los Cabos — home"><Logo /></a>
 
     <nav class="hdr__nav" aria-label="Primary">
-      {nav.map((item) => (
-        <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
+      {nav.map((i) => (
+        <a href={i.href} aria-current={path === i.href ? 'page' : undefined}>{i.label}</a>
       ))}
     </nav>
 
-    <a class="btn btn--primary hdr__cta" href={order} target="_blank" rel="noopener"
+    <a class="btn btn--solid hdr__cta" href={order} target="_blank" rel="noopener"
        data-evt="order_whatsapp_click" data-cta="header">Order</a>
 
     <details class="hdr__menu">
-      <summary aria-label="Menu">
-        <span class="hdr__burger" aria-hidden="true"><i></i><i></i><i></i></span>
-      </summary>
+      <summary aria-label="Menu"><span class="hdr__burger" aria-hidden="true"><i></i><i></i></span></summary>
       <div class="hdr__panel">
         <nav aria-label="Mobile">
-          {nav.map((item) => (
-            <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
+          {nav.map((i) => (
+            <a href={i.href} aria-current={path === i.href ? 'page' : undefined}>{i.label}</a>
           ))}
         </nav>
-        <a class="btn btn--primary" href={order} target="_blank" rel="noopener"
+        <a class="btn btn--solid" href={order} target="_blank" rel="noopener"
            data-evt="order_whatsapp_click" data-cta="mobile_menu">Order on WhatsApp</a>
       </div>
     </details>
@@ -39,61 +37,84 @@ const order = whatsappUrl(
 
 <style>
   .hdr {
-    position: sticky; top: 0; z-index: 60;
-    background: color-mix(in srgb, var(--paper) 88%, transparent);
-    backdrop-filter: saturate(1.4) blur(10px);
-    border-bottom: 1px solid var(--line-soft);
+    position: fixed; inset: 0 0 auto; z-index: 100;
+    color: var(--on-dark);
+    transition: background-color 0.4s var(--ease), border-color 0.4s var(--ease);
+    border-bottom: 1px solid transparent;
   }
-  .hdr__bar { display: flex; align-items: center; gap: 1.5rem; min-height: 80px; }
-  .hdr__logo { text-decoration: none; color: var(--ink); margin-right: auto; padding-block: 0.5rem; }
+  /* Transparent over the hero, then a solid bar once you scroll. */
+  .hdr[data-stuck] {
+    background: color-mix(in srgb, var(--night) 92%, transparent);
+    backdrop-filter: saturate(1.3) blur(14px);
+    border-bottom-color: var(--line-d-soft);
+  }
+  /* With the disclosure open the bar must be opaque, whatever the scroll. */
+  .hdr:has(.hdr__menu[open]) { background: var(--night); border-bottom-color: transparent; }
+  .hdr__in { display: flex; align-items: center; gap: 2rem; min-height: 88px; }
+  .hdr__logo { text-decoration: none; margin-right: auto; padding-block: 0.6rem; }
 
   .hdr__nav { display: none; gap: 2.4rem; }
   .hdr__nav a {
-    font-size: var(--t-micro); letter-spacing: 0.18em; text-transform: uppercase;
-    font-weight: 500;
-    text-decoration: none; color: var(--ink-soft);
-    padding-block: 0.35rem; border-bottom: 1px solid transparent;
-    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+    font-size: 0.72rem; font-weight: 400;
+    letter-spacing: 0.19em; text-transform: uppercase;
+    text-decoration: none; color: var(--on-dark-soft);
+    padding-block: 0.4rem; position: relative;
+    transition: color 0.3s var(--ease);
   }
-  .hdr__nav a:hover { color: var(--ink); border-color: var(--line); }
-  .hdr__nav a[aria-current='page'] { color: var(--ink); border-color: var(--green); }
-  .hdr__cta { display: none; padding: 0.8rem 1.6rem; min-height: 44px; }
+  .hdr__nav a::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background: var(--ember); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.35s var(--ease);
+  }
+  .hdr__nav a:hover { color: var(--on-dark); }
+  .hdr__nav a:hover::after, .hdr__nav a[aria-current='page']::after { transform: scaleX(1); }
+  .hdr__nav a[aria-current='page'] { color: var(--on-dark); }
 
-  /* ---- mobile disclosure: native <details>, no JavaScript ---- */
+  .hdr__cta { display: none; min-height: 44px; padding: 0.72rem 1.5rem; font-size: 0.7rem; }
+
+  /* Native <details> disclosure — no JavaScript. */
   .hdr__menu summary {
     list-style: none; cursor: pointer;
-    width: 48px; height: 48px; display: grid; place-items: center;
-    margin-right: -0.5rem; border-radius: var(--radius);
+    width: 48px; height: 48px; display: grid; place-items: center; margin-right: -0.6rem;
   }
   .hdr__menu summary::-webkit-details-marker { display: none; }
-  .hdr__burger { display: grid; gap: 5px; width: 22px; }
-  .hdr__burger i { display: block; height: 1.5px; background: var(--ink); transition: transform 0.24s var(--ease), opacity 0.2s var(--ease); }
-  .hdr__menu[open] .hdr__burger i:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-  .hdr__menu[open] .hdr__burger i:nth-child(2) { opacity: 0; }
-  .hdr__menu[open] .hdr__burger i:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  .hdr__burger { display: grid; gap: 7px; width: 26px; }
+  .hdr__burger i { display: block; height: 1px; background: currentColor; transition: transform 0.3s var(--ease); }
+  .hdr__menu[open] .hdr__burger i:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+  .hdr__menu[open] .hdr__burger i:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
 
   .hdr__panel {
-    position: absolute; left: 0; right: 0; top: 100%;
-    background: var(--paper); border-bottom: 1px solid var(--line);
-    padding: 0.75rem var(--pad-x) 1.75rem;
-    display: grid; gap: 0.25rem;
-    /* The offset+spread makes a scrim that starts at the panel's top edge and
-       covers the page below it, so the menu never reads as merged with the
-       content behind it. Pure CSS: no overlay element, no JS. */
-    box-shadow: 0 18px 40px -28px rgba(34, 32, 28, 0.5), 0 50vh 0 50vh rgba(34, 32, 28, 0.34);
+    position: fixed; inset: 88px 0 auto; background: var(--night);
+    padding: 1.5rem var(--pad-x) 2.75rem;
+    display: grid; gap: 0.2rem;
+    border-bottom: 1px solid var(--line-d-soft);
+    box-shadow: 0 60vh 0 60vh rgba(14, 18, 14, 0.72);
   }
   .hdr__panel nav { display: grid; }
   .hdr__panel nav a {
-    font-family: var(--display); font-size: 1.35rem;
+    font-family: var(--display); font-size: 2rem; font-weight: 300;
     text-decoration: none; padding: 0.75rem 0; min-height: 48px;
-    display: flex; align-items: center;
-    border-bottom: 1px solid var(--line-soft);
+    display: flex; align-items: center; border-bottom: 1px solid var(--line-d-soft);
   }
-  .hdr__panel nav a[aria-current='page'] { color: var(--green); }
-  .hdr__panel .btn { margin-top: 1.25rem; justify-content: center; }
+  .hdr__panel nav a[aria-current='page'] { color: var(--ember); }
+  .hdr__panel .btn { margin-top: 1.75rem; }
 
-  @media (min-width: 900px) {
+  @media (min-width: 960px) {
     .hdr__nav, .hdr__cta { display: flex; }
     .hdr__menu { display: none; }
   }
 </style>
+
+<script is:inline>
+  // Adds a solid background to the header once the hero is behind it.
+  (function () {
+    var h = document.querySelector('[data-hdr]');
+    if (!h) return;
+    var set = function () {
+      if (window.scrollY > 40) h.setAttribute('data-stuck', '');
+      else h.removeAttribute('data-stuck');
+    };
+    set();
+    window.addEventListener('scroll', set, { passive: true });
+  })();
+</script>

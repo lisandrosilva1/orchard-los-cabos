@@ -121,12 +121,29 @@ None of these are in primary navigation. All remain reachable and sellable.
 | Breed reference collage | **Dropped** — a screenshot collage of third-party photos, at least one carrying another site's watermark. Copyright risk |
 | WhatsApp icon PNG | **Replaced** with an inline SVG |
 
-**Photography gap (owner action):** every usable Orchard photograph is of eggs.
-There are no real photographs of the birds, the farm, the mango trees, the mill,
-the people, or a visit in progress. The site is designed to work without them —
-typography and space carry the pages that have no image — but real photographs of
-those subjects would materially improve it. No AI imagery was generated to fill
-the gap, and none should be. A suggested shot list is in the handoff report.
+### Second photography round (August 2026) — gap closed
+
+The owner supplied ten further photographs, which changed what the site could be.
+The design was rebuilt around them:
+
+| Asset | Used as |
+| --- | --- |
+| `hero-basket-sea-of-cortez.jpg` | **Homepage hero.** A basket of Orchard eggs on marble above the Sea of Cortez at first light — farm, luxury and Los Cabos in one frame |
+| `flock-golden-hour.jpg` | Full-bleed plate on the homepage; About page opener |
+| `hands-holding-eggs.jpg` | Farm Experience opener; homepage tile |
+| `hands-holding-farm-feed.jpg` | The feed section — visual proof of the "we mill our own feed" claim |
+| `eggs-basket-villa-marble.jpg` | Hospitality opener |
+| `eggs-ceramic-bowl-villa.jpg` | Hospitality feature |
+| `carton-of-sage-eggs.jpg` | Farm Products opener; homepage egg feature |
+| `hens-at-the-waterer.jpg` | Farm Experience feature |
+
+Still no AI imagery, and none should ever be added.
+
+**Not yet on the site (owner action):** the vacuum-sealed product photographs
+(breasts, wings, whole birds with weight labels) and the plated quail dish would
+strengthen Farm Products and Hospitality considerably. They were shared as chat
+images but not as files, so they could not be processed. Drop them in a folder
+and they can be added.
 
 ## 8. Cross-channel conflicts (raised and resolved 2026-08-21)
 

@@ -1,39 +1,35 @@
 ---
-/**
- * Typographic brand lockup.
- *
- * The legacy site used an AI-generated engraved-poultry badge that carried an
- * unverifiable "PASTURED POULTRY / NATURAL" strapline and was illegible at
- * small sizes. It was retired; this lockup is the mark. See docs/BRAND.md.
- */
+/** Wordmark: Cormorant caps over wide-tracked Jost, split by a hairline. */
 interface Props { size?: 'sm' | 'md'; }
 const { size = 'md' } = Astro.props;
 ---
-<span class:list={['lockup', `lockup--${size}`]}>
-  <span class="lockup__name">Orchard</span>
-  <span class="lockup__place">Los Cabos</span>
+<span class:list={['mark', `mark--${size}`]}>
+  <span class="mark__name">Orchard</span>
+  <span class="mark__rule" aria-hidden="true"></span>
+  <span class="mark__place">Los Cabos</span>
 </span>
 
 <style>
-  .lockup { display: inline-flex; flex-direction: column; line-height: 1; text-decoration: none; }
-  .lockup__name {
+  .mark { display: inline-grid; justify-items: center; gap: 0.34rem; line-height: 1; }
+  .mark__name {
     font-family: var(--display);
-    font-weight: 500;
-    letter-spacing: 0.012em;
-    font-size: 1.5rem;
-  }
-  .lockup__place {
-    font-family: var(--body);
-    font-size: 0.5625rem;
-    letter-spacing: 0.3em;
+    font-weight: 300;
+    font-size: 1.75rem;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: var(--ink-mute);
-    margin-top: 0.4em;
-    padding-left: 0.14em;
+    padding-left: 0.09em;
   }
-  .lockup--sm .lockup__name { font-size: 1.25rem; }
-  .lockup--sm .lockup__place { font-size: 0.5rem; }
-  @media (min-width: 900px) {
-    .lockup--md .lockup__name { font-size: 1.75rem; }
+  .mark__rule { width: 100%; height: 1px; background: currentColor; opacity: 0.4; }
+  .mark__place {
+    font-family: var(--ui);
+    font-weight: 400;
+    font-size: 0.5rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    padding-left: 0.42em;
+    opacity: 0.78;
   }
+  .mark--sm .mark__name { font-size: 1.4rem; }
+  .mark--sm .mark__place { font-size: 0.45rem; }
+  @media (min-width: 900px) { .mark--md .mark__name { font-size: 2rem; } }
 </style>

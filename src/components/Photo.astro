@@ -12,6 +12,7 @@ interface Props {
   sizes: string;
   widths?: number[];
   priority?: boolean;
+  quality?: number;
   class?: string;
   ratio?: string;
 }
@@ -21,6 +22,7 @@ const {
   sizes,
   widths = [400, 640, 900, 1280, 1800],
   priority = false,
+  quality = 72,
   class: className,
   ratio,
 } = Astro.props;
@@ -32,7 +34,7 @@ const {
   widths={widths}
   formats={['avif', 'webp']}
   fallbackFormat="jpg"
-  quality={72}
+  quality={quality}
   loading={priority ? 'eager' : 'lazy'}
   decoding={priority ? 'sync' : 'async'}
   fetchpriority={priority ? 'high' : 'auto'}

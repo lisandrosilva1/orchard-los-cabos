@@ -1,87 +1,84 @@
 ---
 import Logo from './Logo.astro';
-import { contact, nav, whatsappUrl, socialLinks } from '../data/site';
-
+import { contact, nav, whatsappUrl } from '../data/site';
 const year = new Date().getFullYear();
 const order = whatsappUrl("Hi Orchard — I'd like to order farm products.");
 ---
 <footer class="ftr">
-  <div class="wrap">
-    <div class="ftr__top">
-      <div class="ftr__brand">
-        <Logo size="sm" />
-        <p class="ftr__blurb">
-          A working farm in {contact.areaDescription}, producing farm-fresh eggs
-          and poultry for Los Cabos.
+  <div class="shell">
+    <div class="ftr__brand">
+      <Logo size="sm" />
+    </div>
+
+    <div class="ftr__grid">
+      <div class="ftr__col ftr__col--wide">
+        <p class="ftr__say">
+          Eggs and poultry raised under the mango trees in {contact.city},
+          and delivered across Los&nbsp;Cabos the same week.
         </p>
       </div>
 
-      <nav class="ftr__nav" aria-label="Footer">
+      <nav class="ftr__col" aria-label="Footer">
         <h2>Explore</h2>
         {nav.map((i) => <a href={i.href}>{i.label}</a>)}
         <a href="/privacy/">Privacy</a>
       </nav>
 
-      <div class="ftr__contact">
-        <h2>Contact</h2>
+      <div class="ftr__col">
+        <h2>Reach the farm</h2>
         <a href={order} target="_blank" rel="noopener" data-evt="order_whatsapp_click" data-cta="footer">
-          WhatsApp {contact.phoneDisplay}
+          WhatsApp
         </a>
-        <a href={`tel:${contact.phoneE164}`} data-cta="footer">Call {contact.phoneDisplay}</a>
+        <a href={`tel:${contact.phoneE164}`} data-cta="footer">{contact.phoneDisplay}</a>
         <a href={`mailto:${contact.email}`} data-cta="footer">{contact.email}</a>
-        <p class="ftr__where">
-          {contact.city}, {contact.region}<br />{contact.country}
-        </p>
+      </div>
 
-        {socialLinks.length > 0 && (
-          <ul class="ftr__social">
-            {socialLinks.map((s) => (
-              <li>
-                <a href={s.href} target="_blank" rel="noopener" data-evt={s.evt} data-cta="footer">
-                  {s.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
+      <div class="ftr__col">
+        <h2>Find us</h2>
+        <p>{contact.areaDescription}</p>
+        <p>{contact.region}, {contact.country}</p>
+        <p class="ftr__note">Visits by appointment</p>
       </div>
     </div>
 
-    <hr class="rule" />
-
-    <div class="ftr__bottom">
-      <p>&copy; {year} Orchard Los Cabos. All rights reserved.</p>
-      <p class="ftr__network">Featured by Los Cabos Discovery Network</p>
+    <div class="ftr__foot">
+      <p>&copy; {year} Orchard Los Cabos</p>
+      <p class="ftr__net">Featured by Los Cabos Discovery Network</p>
     </div>
   </div>
 </footer>
 
 <style>
-  .ftr { background: var(--paper-deep); padding-block: var(--sect-y) 2.5rem; border-top: 1px solid var(--line-soft); }
-  .ftr__top { display: grid; gap: 2.75rem; padding-bottom: 3rem; }
-  .ftr__blurb { margin-top: 1.15rem; color: var(--ink-soft); font-size: var(--t-small); max-width: 30ch; }
+  .ftr { background: var(--night-2); padding-block: var(--bay) 2.5rem; border-top: 1px solid var(--line-d-soft); }
+  .ftr__brand { display: flex; justify-content: center; padding-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .ftr__grid { display: grid; gap: 2.75rem; padding-bottom: 3.5rem; }
+  .ftr__say { font-family: var(--display); font-size: clamp(1.35rem, 1.1rem + 1.1vw, 2rem); line-height: 1.24; max-width: 20ch; font-weight: 300; }
 
   .ftr h2 {
-    font-family: var(--body); font-size: var(--t-micro); font-weight: 600;
-    letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute);
-    margin-bottom: 1.15rem;
+    font-family: var(--ui); font-size: var(--t-eyebrow); font-weight: 400;
+    letter-spacing: 0.26em; text-transform: uppercase; color: var(--on-dark-mute);
+    margin-bottom: 1.3rem;
   }
-  .ftr__nav, .ftr__contact { display: grid; align-content: start; gap: 0.7rem; }
-  .ftr__nav a, .ftr__contact a {
-    text-decoration: none; color: var(--ink-soft); font-size: var(--t-small);
-    width: fit-content; border-bottom: 1px solid transparent; padding-block: 0.15rem;
-    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  .ftr__col { display: grid; align-content: start; gap: 0.72rem; }
+  .ftr__col a {
+    text-decoration: none; color: var(--on-dark-soft); font-size: var(--t-small);
+    width: fit-content; padding-bottom: 2px; border-bottom: 1px solid transparent;
+    transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
   }
-  .ftr__nav a:hover, .ftr__contact a:hover { color: var(--ink); border-color: var(--green); }
-  .ftr__where { font-size: var(--t-small); color: var(--ink-mute); margin-top: 0.5rem; }
-  .ftr__social { list-style: none; padding: 0; margin: 0.4rem 0 0; display: flex; flex-wrap: wrap; gap: 1rem; }
+  .ftr__col a:hover { color: var(--on-dark); border-bottom-color: var(--ember); }
+  .ftr__col p { font-size: var(--t-small); color: var(--on-dark-soft); }
+  .ftr__note { color: var(--on-dark-mute) !important; }
 
-  .ftr__bottom {
-    display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem;
-    justify-content: space-between; padding-top: 1.75rem;
-    font-size: var(--t-micro); color: var(--ink-mute);
+  .ftr__foot {
+    display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; justify-content: space-between;
+    padding-top: 2rem; border-top: 1px solid var(--line-d-soft);
+    font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--on-dark-mute);
   }
-  .ftr__network { letter-spacing: 0.07em; text-transform: uppercase; }
 
-  @media (min-width: 760px) { .ftr__top { grid-template-columns: 1.6fr 1fr 1.2fr; gap: 3rem; } }
+  @media (min-width: 720px) { .ftr__grid { grid-template-columns: repeat(2, 1fr); gap: 3rem; } }
+  @media (min-width: 1040px) {
+    .ftr__grid { grid-template-columns: 1.5fr 1fr 1.2fr 1.2fr; }
+    .ftr__col--wide { padding-right: 2rem; }
+  }
 </style>

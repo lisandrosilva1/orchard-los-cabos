@@ -1,23 +1,26 @@
 ---
 import Base from '../layouts/Base.astro';
-import Photo from '../components/Photo.astro';
+import PageHero from '../components/PageHero.astro';
+import Duo from '../components/Duo.astro';
+import Plate from '../components/Plate.astro';
 import CtaBand from '../components/CtaBand.astro';
-import PageHeader from '../components/PageHeader.astro';
 import { whatsappUrl } from '../data/site';
-import { eggExperience, schoolProgramme } from '../data/pricing';
 
-import cartonImg from '../assets/images/egg-carton-on-grass.jpg';
+import heroImg from '../assets/images/hands-holding-eggs.jpg';
+import waterImg from '../assets/images/hens-at-the-waterer.jpg';
+import feedImg from '../assets/images/hands-holding-farm-feed.jpg';
+import flockImg from '../assets/images/flock-golden-hour.jpg';
 
 const bookFamily = whatsappUrl("Hi Orchard — I'd like to book a family farm visit. Could you share available dates?");
 const bookSchool = whatsappUrl("Hi Orchard — I'm enquiring about a school group visit. Could you send details and dates?");
 
 const stations = [
-  { t: 'The chicks', d: 'Newly hatched and few-month-old birds — usually where the morning starts, and where it is hardest to move anyone along.' },
+  { t: 'The chicks', d: 'Newly hatched and a few months old — usually where the morning starts, and where it is hardest to move anyone along.' },
   { t: 'The growing area', d: 'How a chick becomes a bird, and how long that actually takes.' },
-  { t: 'Laying hens and breeding birds', d: 'Meeting the flock that produces the eggs, and seeing how they live under the trees.' },
+  { t: 'Laying hens and breeding birds', d: 'Meeting the flock that lays the eggs, and seeing how they live under the trees.' },
   { t: 'Collecting eggs', d: 'Hands into the nesting boxes. Every child leaves with eggs they collected themselves.' },
   { t: 'Feeding the birds', d: 'Feed in hand, birds underfoot. Reliably the loudest station of the day.' },
-  { t: 'The mill', d: 'Where we make the feed, and what actually goes into it.' },
+  { t: 'The mill', d: 'Where the feed is made, and what actually goes into it.' },
   { t: 'Animal care', d: 'How the birds are looked after day to day, and why it changes how the food tastes.' },
 ];
 ---
@@ -27,52 +30,44 @@ const stations = [
   breadcrumb={[{ name: 'Farm Experience', href: '/farm-experience/' }]}
   fabMessage="Hi Orchard — I'd like to book a farm visit."
 >
-  <PageHeader
+  <PageHero src={heroImg}
+    alt="Two warm brown eggs cupped in a visitor's hands, the flock scratching in the background."
     eyebrow="Farm experience"
     title="Where food comes from, in about three hours."
-    lead="A guided morning on a working farm in San José del Cabo — for families with children, and for schools who want the lesson to happen somewhere other than a classroom."
-  >
-    <div class="btn-row">
-      <a class="btn btn--primary" href={bookFamily} target="_blank" rel="noopener"
+    lead="A guided morning on a working farm in San José del Cabo — for families with children, and for schools who want the lesson to happen somewhere other than a classroom.">
+    <div class="btns">
+      <a class="btn btn--solid" href={bookFamily} target="_blank" rel="noopener"
          data-evt="farm_visit_click" data-cta="experience_header">Book a farm visit</a>
-      <a class="btn btn--ghost" href={bookSchool} target="_blank" rel="noopener"
+      <a class="btn btn--line" href={bookSchool} target="_blank" rel="noopener"
          data-evt="school_visit_inquiry" data-cta="experience_header">Enquire for a school</a>
     </div>
-  </PageHeader>
+  </PageHero>
 
-  <section class="section">
-    <div class="wrap feature">
-      <div class="feature__media">
-        <Photo src={cartonImg}
-          alt="A carton of Orchard eggs with the farm's label, resting on the grass at the farm."
-          sizes="(min-width: 900px) 48vw, 100vw" widths={[420, 640, 900, 1100]} ratio="4/3" priority />
-      </div>
-      <div class="feature__copy">
-        <span class="eyebrow">What happens</span>
-        <h2>A walk through the whole thing.</h2>
-        <div class="prose">
-          <p>
-            The visit follows the farm in order — from the newest chicks through to the
-            nesting boxes and the mill where the feed is made. It is a guided walk with
-            stops, not a tour behind a rope: children feed the birds, hold the eggs and
-            ask the questions they actually have.
-          </p>
-          <p>
-            It runs about three hours including a break, and it is built for children
-            without being dull for the adults who came with them.
-          </p>
-        </div>
-      </div>
+  <Duo src={waterImg} ratio="4/5"
+       alt="Hens gathered around a bright waterer on the Orchard farm, one white hen in the foreground.">
+    <span class="eyebrow">What happens</span>
+    <h2>A walk through the whole thing.</h2>
+    <div class="prose">
+      <p>
+        The visit follows the farm in order — from the newest chicks through to the nesting
+        boxes and the mill where the feed is made. It is a guided walk with stops, not a tour
+        behind a rope: children feed the birds, hold the eggs and ask the questions they
+        actually have.
+      </p>
+      <p>
+        It runs about three hours including a break, and it is built for children without
+        being dull for the adults who came with them.
+      </p>
     </div>
-  </section>
+  </Duo>
 
-  <section class="section section--tint">
-    <div class="wrap">
+  <section class="bay light">
+    <div class="shell">
       <span class="eyebrow">The route</span>
-      <h2 class="rt__h">Seven stops.</h2>
+      <h2 class="statement rt__h">Seven stops.</h2>
       <ol class="stations">
         {stations.map((s, i) => (
-          <li>
+          <li class="rise">
             <span aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
             <div><h3>{s.t}</h3><p>{s.d}</p></div>
           </li>
@@ -81,119 +76,104 @@ const stations = [
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap two">
-      <article class="card">
+  <Plate src={flockImg} height="clamp(24rem, 58vh, 34rem)"
+         alt="Orchard's flock in warm late light, hens moving through the shade beneath the trees.">
+    <span class="eyebrow">On the day</span>
+    <p class="statement">Closed shoes, a hat, and questions.</p>
+  </Plate>
+
+  <section class="bay">
+    <div class="shell two">
+      <article class="card rise">
         <span class="eyebrow">Families</span>
         <h2>Family visits</h2>
         <div class="prose">
           <p>
-            Small groups, by appointment, most suitable for children old enough to walk the
-            farm and handle an egg carefully — roughly four and up, though younger children
-            come along with their families all the time.
+            Small groups by appointment, best suited to children old enough to walk the farm
+            and handle an egg carefully — roughly four and up, though younger children come
+            along with their families all the time.
           </p>
-          <p>
-            The egg-collecting experience is {eggExperience.qty} for
-            ${eggExperience.pickup} MXN — you walk the nesting boxes, gather them
-            yourself, and take the lot home.
-          </p>
+          <p>Everyone goes home with eggs they collected.</p>
         </div>
         <ul class="specs">
-          <li><span>Collect your own eggs</span><span>${eggExperience.pickup} MXN &middot; {eggExperience.qty} to take home</span></li>
           <li><span>Duration</span><span>About 3 hours</span></li>
           <li><span>Booking</span><span>By appointment</span></li>
-          <li><span>Who</span><span>Adults, and children with an adult</span></li>
+          <li><span>Ages</span><span>All ages welcome</span></li>
         </ul>
-        <div class="btn-row">
-          <a class="btn btn--primary" href={bookFamily} target="_blank" rel="noopener"
+        <div class="btns">
+          <a class="btn btn--solid" href={bookFamily} target="_blank" rel="noopener"
              data-evt="farm_visit_click" data-cta="experience_family">Book a family visit</a>
         </div>
       </article>
 
-      <article class="card">
+      <article class="card rise">
         <span class="eyebrow">Schools &amp; groups</span>
         <h2>School programme</h2>
         <div class="prose">
           <p>
             A structured programme for schools and institutes: an interactive welcome, the
-            guided route through the farm, a question-and-prize round, lunch, and time in
-            the park before the group photo.
+            guided route through the farm, a question-and-prize round, lunch, and time in the
+            park before the group photo.
           </p>
           <p>
             Students learn the life cycle of the birds, where eggs and poultry come from,
-            what natural feed is, and how the animals are cared for. Printed support
-            material goes home with them, along with a dozen eggs each that they
-            collected themselves.
-          </p>
-          <p>
-            <strong>${schoolProgramme.perStudent} MXN per student</strong>, including the
-            guided visit, feed for the birds, the prize round, lunch, use of the park
-            and the eggs each child takes home.
+            what natural feed is, and how the animals are cared for. Printed support material
+            goes home with them, along with a dozen eggs each.
           </p>
         </div>
         <ul class="specs">
-          <li><span>Price</span><span>${schoolProgramme.perStudent} MXN per student</span></li>
-          <li><span>Duration</span><span>About 3 hours 15 minutes</span></li>
-          <li><span>Group size</span><span>Built for 15–30 students</span></li>
+          <li><span>Duration</span><span>About 3 h 15 m</span></li>
+          <li><span>Group size</span><span>Built for 15–30</span></li>
           <li><span>Minimum</span><span>15 students</span></li>
-          <li><span>Notice</span><span>At least 8 days ahead</span></li>
-          <li><span>To confirm</span><span>50% deposit, balance before the visit</span></li>
+          <li><span>Notice</span><span>At least 8 days</span></li>
+          <li><span>To confirm</span><span>50% deposit</span></li>
         </ul>
-        <div class="btn-row">
-          <a class="btn btn--primary" href={bookSchool} target="_blank" rel="noopener"
+        <div class="btns">
+          <a class="btn btn--solid" href={bookSchool} target="_blank" rel="noopener"
              data-evt="school_visit_inquiry" data-cta="experience_school">Enquire for a school</a>
         </div>
       </article>
     </div>
   </section>
 
-  <section class="section section--tint">
-    <div class="wrap narrow">
-      <span class="eyebrow">Before you come</span>
-      <h2 class="bc__h">A few practical things.</h2>
-      <div class="prose bc__body">
-        <p>
-          It is a working farm: closed shoes, clothes that can get dusty, sun protection and
-          water. There is shade under the mango trees and drinking water on site throughout.
-        </p>
-        <p>
-          Tell us in advance about food allergies, dietary restrictions or anything a child
-          needs particular attention for, and we will plan around it. School groups get a
-          short preparation checklist by message once the date is confirmed — it covers
-          insurance, final numbers, arrival times and medical information.
-        </p>
-        <p><strong>Visits are by appointment only.</strong> We send exact directions when your booking is confirmed.</p>
-      </div>
+  <Duo src={feedImg} flip ratio="4/3" tone="light"
+       alt="A double handful of Orchard's own pelleted feed lifted from the sack it was milled into.">
+    <span class="eyebrow">Before you come</span>
+    <h2>A few practical things.</h2>
+    <div class="prose">
+      <p>
+        It is a working farm: closed shoes, clothes that can get dusty, sun protection and
+        water. There is shade under the mango trees and drinking water on site throughout.
+      </p>
+      <p>
+        Tell us in advance about food allergies, dietary restrictions or anything a child
+        needs particular attention for, and we plan around it. School groups get a short
+        preparation checklist by message once the date is confirmed — insurance, final
+        numbers, arrival times and medical information.
+      </p>
+      <p><strong>Visits are by appointment only.</strong> We send exact directions once your booking is confirmed.</p>
     </div>
-  </section>
+  </Duo>
 
   <CtaBand location="experience" />
 </Base>
 
 <style>
-  .feature { display: grid; gap: clamp(1.75rem, 1rem + 4vw, 3.5rem); align-items: center; }
-  .feature__copy h2 { font-size: var(--t-h2); }
-  .feature__copy .prose { margin-top: 1.5rem; }
-  @media (min-width: 900px) { .feature { grid-template-columns: 1fr 1fr; } }
+  .rt__h { margin-top: 0.4rem; }
+  .stations { list-style: none; margin: clamp(2.5rem, 4vw, 3.5rem) 0 0; padding: 0; display: grid; }
+  .stations li { display: grid; grid-template-columns: 3.25rem 1fr; gap: 0.4rem 1rem; padding-block: 1.5rem; border-top: 1px solid var(--line-l); }
+  .stations span[aria-hidden] { font-family: var(--display); font-size: 0.8rem; letter-spacing: 0.2em; color: var(--ember); padding-top: 0.35rem; }
+  .stations h3 { font-family: var(--ui); font-weight: 500; font-size: 1.02rem; }
+  .stations p { margin-top: 0.35rem; color: var(--on-light-soft); font-size: var(--t-small); max-width: 58ch; }
+  @media (min-width: 800px) { .stations { grid-template-columns: repeat(2, 1fr); column-gap: 3.5rem; } }
 
-  .rt__h { font-size: var(--t-h2); margin-top: 0.4rem; }
-  .stations { list-style: none; margin: 2.5rem 0 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
-  .stations li { display: grid; grid-template-columns: 3rem 1fr; gap: 0.5rem 1rem; padding-block: 1.4rem; border-bottom: 1px solid var(--line); }
-  .stations span[aria-hidden] { font-family: var(--display); font-size: var(--t-small); color: var(--green); }
-  .stations h3 { font-size: 1.1rem; }
-  .stations p { margin-top: 0.35rem; color: var(--ink-soft); font-size: var(--t-small); max-width: 62ch; }
-  @media (min-width: 760px) { .stations { grid-template-columns: repeat(2, 1fr); column-gap: 3rem; } }
-
-  .two { display: grid; gap: var(--gap); }
-  @media (min-width: 900px) { .two { grid-template-columns: 1fr 1fr; gap: 3rem; } }
-  .card { border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.5rem, 1rem + 2vw, 2.5rem); background: var(--paper); }
+  .two { display: grid; gap: 1.5rem; }
+  @media (min-width: 900px) { .two { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+  .card { border: 1px solid var(--line-d-soft); padding: clamp(1.6rem, 1rem + 2.2vw, 2.75rem); background: var(--night-2); }
   .card h2 { font-size: var(--t-h3); }
-  .card .prose { margin-top: 1.1rem; font-size: var(--t-small); }
-  .specs { list-style: none; margin: 1.75rem 0 0; padding: 0; border-top: 1px solid var(--line); }
-  .specs li { display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.7rem; border-bottom: 1px solid var(--line-soft); font-size: var(--t-small); }
-  .specs li span:first-child { color: var(--ink-mute); }
+  .card .prose { margin-top: 1.2rem; font-size: var(--t-small); }
+  .specs { list-style: none; margin: 1.9rem 0 0; padding: 0; }
+  .specs li { display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.75rem; border-top: 1px solid var(--line-d-soft); font-size: var(--t-small); }
+  .specs li span:first-child { color: var(--on-dark-mute); }
   .specs li span:last-child { text-align: right; }
-
-  .bc__h { font-size: var(--t-h2); margin-top: 0.4rem; }
-  .bc__body { margin-top: 1.5rem; }
 </style>

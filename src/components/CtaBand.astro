@@ -6,33 +6,36 @@ const order = whatsappUrl("Hi Orchard — I'd like to order farm products. What'
 const visit = whatsappUrl("Hi Orchard — I'd like to book a farm visit. Could you share dates and details?");
 const work = whatsappUrl('Hi Orchard — I run a hospitality business in Los Cabos and would like to discuss regular supply.');
 ---
-<section class="section section--ink cta">
-  <div class="wrap">
+<section class="cta bay">
+  <div class="shell cta__in rise">
     <span class="eyebrow">Fresh from Orchard</span>
-    <h2>Order, visit, or work with us.</h2>
-    <p class="lead">
-      The quickest way to reach the farm is WhatsApp — we answer there first.
-    </p>
-    <div class="cta__grid">
-      <a class="btn btn--primary" href={order} target="_blank" rel="noopener"
+    <p class="statement cta__h">Order, visit, or put us on your menu.</p>
+    <p class="lead cta__lead">WhatsApp reaches the farm fastest — we answer there first.</p>
+
+    <div class="btns cta__btns">
+      <a class="btn btn--solid" href={order} target="_blank" rel="noopener"
          data-evt="order_whatsapp_click" data-cta={`cta_band_${loc}`}>Order</a>
-      <a class="btn btn--ghost" href={visit} target="_blank" rel="noopener"
+      <a class="btn btn--line" href={visit} target="_blank" rel="noopener"
          data-evt="farm_visit_click" data-cta={`cta_band_${loc}`}>Visit</a>
-      <a class="btn btn--ghost" href={work} target="_blank" rel="noopener"
+      <a class="btn btn--line" href={work} target="_blank" rel="noopener"
          data-evt="hospitality_inquiry" data-cta={`cta_band_${loc}`}>Work with us</a>
     </div>
+
     <p class="cta__alt">
-      Or call <a href={`tel:${contact.phoneE164}`} data-cta={`cta_band_${loc}`}>{contact.phoneDisplay}</a>
-      &nbsp;·&nbsp;
+      <a href={`tel:${contact.phoneE164}`} data-cta={`cta_band_${loc}`}>{contact.phoneDisplay}</a>
+      <span aria-hidden="true">&nbsp;&nbsp;/&nbsp;&nbsp;</span>
       <a href={`mailto:${contact.email}`} data-cta={`cta_band_${loc}`}>{contact.email}</a>
     </p>
   </div>
 </section>
 
 <style>
-  .cta h2 { font-size: var(--t-h2); max-width: 18ch; }
-  .cta .lead { margin-top: 1.1rem; }
-  .cta__grid { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.25rem; }
-  .cta__alt { margin-top: 2rem; font-size: var(--t-small); color: rgba(248, 244, 237, 0.7); }
-  .cta__alt a { color: var(--paper); text-underline-offset: 4px; }
+  .cta { background: var(--night-2); border-top: 1px solid var(--line-d-soft); text-align: center; }
+  .cta__in { display: grid; justify-items: center; }
+  .cta__h { font-size: var(--t-h2); max-width: 17ch; }
+  .cta__lead { margin-top: 1.35rem; text-align: center; }
+  .cta__btns { justify-content: center; }
+  .cta__alt { margin-top: 2.5rem; font-size: var(--t-small); color: var(--on-dark-mute); }
+  .cta__alt a { text-decoration: none; border-bottom: 1px solid var(--line-d); padding-bottom: 2px; }
+  .cta__alt a:hover { border-color: var(--ember); color: var(--on-dark); }
 </style>

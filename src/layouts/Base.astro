@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Analytics from '../components/Analytics.astro';
 import WhatsAppFab from '../components/WhatsAppFab.astro';
+import Reveal from '../components/Reveal.astro';
 import { site, contact, socialLinks, maps, hours } from '../data/site';
 
 interface Props {
@@ -107,6 +108,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>{title}</title>
@@ -114,7 +116,9 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
 
-    <link rel="preload" href="/fonts/fraunces-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Only the display face is preloaded: it renders the LCP heading. Jost
+         loads at normal priority so it does not compete on the critical path. -->
+    <link rel="preload" href="/fonts/cormorant-latin-var.woff2" as="font" type="font/woff2" crossorigin />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
@@ -148,5 +152,6 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': grap
     </main>
     <Footer />
     <WhatsAppFab message={fabMessage} location="floating" />
+    <Reveal />
   </body>
 </html>

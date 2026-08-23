@@ -1,96 +1,119 @@
 ---
 import Base from '../layouts/Base.astro';
-import Photo from '../components/Photo.astro';
+import PageHero from '../components/PageHero.astro';
+import Plate from '../components/Plate.astro';
+import Duo from '../components/Duo.astro';
 import CtaBand from '../components/CtaBand.astro';
-import PageHeader from '../components/PageHeader.astro';
 import { contact } from '../data/site';
 
-import heroImg from '../assets/images/eggs-in-wooden-bowl.jpg';
+import heroImg from '../assets/images/flock-golden-hour.jpg';
+import bowlImg from '../assets/images/eggs-in-wooden-bowl.jpg';
+import feedImg from '../assets/images/hands-holding-farm-feed.jpg';
+import seaImg from '../assets/images/hero-basket-sea-of-cortez.jpg';
 ---
 <Base
   title="About Orchard — A Farm in San José del Cabo"
-  description="Orchard is a small poultry farm in the Buenos Aires neighbourhood of San José del Cabo, producing eggs and poultry for Los Cabos — and open to visitors."
+  description="Orchard is a small poultry farm in the Mango Fields area of San José del Cabo, producing eggs and poultry for Los Cabos — and open to visitors."
   breadcrumb={[{ name: 'About', href: '/about/' }]}
 >
-  <PageHeader
+  <PageHero src={heroImg}
+    alt="Orchard's laying flock in warm late-afternoon light, one russet hen turned toward the camera."
     eyebrow="About"
     title="A small farm under old mango trees."
-    lead="Orchard is a poultry farm on the Buenos Aires side of San José del Cabo — close enough to the airport to be improbable, and quiet enough that you forget it."
-  />
+    lead="Close enough to the airport to be improbable, and quiet enough that you forget it." />
 
-  <section class="section">
-    <div class="wrap ab">
-      <div class="ab__media">
-        <Photo src={heroImg}
-          alt="Freshly collected Orchard eggs in a wooden bowl, in the grass beneath the mango trees."
-          sizes="(min-width: 900px) 42vw, 100vw" widths={[420, 640, 900, 1100]} ratio="4/5" priority />
+  <section class="bay">
+    <div class="shell ab">
+      <div class="ab__lede rise">
+        <p class="statement">
+          Baja California Sur is dry country. Almost everything eaten in Los&nbsp;Cabos
+          arrives from somewhere else.
+        </p>
       </div>
-      <div class="prose ab__body">
+      <div class="prose ab__body rise">
         <p>
-          Baja California Sur is dry country. Most of what gets eaten in Los Cabos arrives
-          from somewhere else — up the peninsula, across the water, or from further away
-          than that. By the time it reaches a kitchen here it has been travelling for days.
+          Most of it comes up the peninsula, across the water, or from further away than
+          that. By the time it reaches a kitchen here it has been travelling for days.
         </p>
         <p>
           Orchard started from a simple objection to that. There is a stand of eighty-year-old
-          mango trees on the edge of San José del Cabo, and underneath them the air moves and
-          the ground stays in shade. It is a good place to keep birds. So we do.
-        </p>
-
-        <h2>What we actually do</h2>
-        <p>
-          We raise laying hens and poultry outdoors under those trees. We formulate and mill
-          our own feed on the farm rather than buying it in — corn, wheat bran, soybean meal
-          and scratch grains, with ginger, turmeric, garlic, onion and oregano — because it
-          is the one input that changes everything downstream and we would rather control it.
-          No hormones are added, and nothing artificial goes into the mix.
-        </p>
-        <p>
-          Eggs are collected by hand every morning, sorted, packed and delivered across
-          Los Cabos by us. The shells come out brown, cream, freckled and pale blue-green
-          depending on the bird. We do not sort that out. It is the most honest thing about
-          the product.
-        </p>
-
-        <h2>On the word "organic"</h2>
-        <p>
-          This site used to describe Orchard as organic. We have taken that word off it. We
-          do not hold organic certification, and using the word without it is a claim we
-          cannot stand behind — so we have replaced it with the things we can: where the
-          birds live, what they eat, who makes their feed, and how quickly the eggs reach you.
-        </p>
-        <p>
-          If those things matter to you, they are all verifiable. You can come and check.
-        </p>
-
-        <h2>Why the farm is open</h2>
-        <p>
-          Most children in Los Cabos have never seen a laying hen. Most adults have not
-          either. We started running visits because people kept asking, and it turned into
-          one of the more worthwhile things the farm does — school groups, families,
-          birthday mornings, chefs who want to see the flock before they buy from it.
-        </p>
-        <p>
-          A farm you can walk onto is a different kind of supplier. It is harder to run that
-          way, and it is the whole point.
-        </p>
-
-        <h2>Where we are going</h2>
-        <p>
-          More birds, more colours in the carton, and more kitchens in Los Cabos serving eggs
-          that were under a mango tree earlier the same week. We would also like more
-          properties producing on their own land, with our help — the short chain works
-          better the more of it there is.
+          mango trees on the edge of San&nbsp;José del&nbsp;Cabo, and underneath them the air
+          moves and the ground stays in shade. It is a good place to keep birds. So we do.
         </p>
       </div>
     </div>
   </section>
 
-  <section class="section section--tint">
-    <div class="wrap">
+  <Plate src={seaImg} height="clamp(26rem, 62vh, 38rem)"
+         alt="A basket of Orchard eggs on marble above the Sea of Cortez at first light.">
+    <span class="eyebrow">The distance from here to the table</span>
+    <p class="statement">Twenty minutes, most weeks.</p>
+  </Plate>
+
+  <Duo src={feedImg} ratio="4/3"
+       alt="A double handful of Orchard's own pelleted feed lifted from the sack it was milled into.">
+    <span class="eyebrow">What we actually do</span>
+    <h2>We hold the one input that matters.</h2>
+    <div class="prose">
+      <p>
+        We raise laying hens and poultry outdoors under those trees, and we formulate and
+        mill our own feed on the farm rather than buying it in — corn, wheat bran, soybean
+        meal and scratch grains, with ginger, turmeric, garlic, onion and oregano. It is the
+        one input that changes everything downstream, so we would rather control it. No
+        hormones are added, and nothing artificial goes into the mix.
+      </p>
+      <p>
+        Eggs are collected by hand every morning, sorted, packed and delivered across
+        Los&nbsp;Cabos by us. The shells come out brown, cream, freckled and pale blue-green
+        depending on the bird. We do not sort that out. It is the most honest thing about the
+        product.
+      </p>
+    </div>
+  </Duo>
+
+  <section class="bay light">
+    <div class="shell ab2">
+      <div class="rise">
+        <span class="eyebrow">On the word &ldquo;organic&rdquo;</span>
+        <h2 class="statement">We took it off the site.</h2>
+      </div>
+      <div class="prose rise">
+        <p>
+          This website used to describe Orchard as organic. We do not hold organic
+          certification, and using the word without it is a claim we cannot stand behind — so
+          we replaced it with the things we can: where the birds live, what they eat, who
+          makes their feed, and how quickly the eggs reach you.
+        </p>
+        <p>
+          If those things matter to you, all of them are verifiable. You can come and check.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Duo src={bowlImg} flip ratio="4/5"
+       alt="Freshly collected Orchard eggs in a wooden bowl, in the grass beneath the mango trees.">
+    <span class="eyebrow">Why the farm is open</span>
+    <h2>Most people here have never seen a laying hen.</h2>
+    <div class="prose">
+      <p>
+        Not the children, and mostly not the adults either. We started running visits because
+        people kept asking, and it turned into one of the more worthwhile things the farm
+        does — school groups, families, birthday mornings, chefs who want to see the flock
+        before they buy from it.
+      </p>
+      <p>
+        A farm you can walk onto is a different kind of supplier. It is harder to run that
+        way, and it is the whole point.
+      </p>
+    </div>
+  </Duo>
+
+  <section class="bay light-2">
+    <div class="shell">
       <span class="eyebrow">The farm, in brief</span>
-      <dl class="ataglance">
-        <div><dt>Where</dt><dd>{contact.areaShort}, {contact.region}</dd></div>
+      <dl class="glance">
+        <div><dt>Where</dt><dd>{contact.areaDescription}, {contact.region}</dd></div>
         <div><dt>What we raise</dt><dd>Laying hens, broilers and ornamental breeds</dd></div>
         <div><dt>Feed</dt><dd>Formulated and milled on the farm</dd></div>
         <div><dt>We serve</dt><dd>Households, hotels, restaurants, villas and private chefs across Los Cabos</dd></div>
@@ -103,15 +126,16 @@ import heroImg from '../assets/images/eggs-in-wooden-bowl.jpg';
 </Base>
 
 <style>
-  .ab { display: grid; gap: clamp(2rem, 1rem + 4vw, 4rem); align-items: start; }
-  .ab__body h2 { font-size: var(--t-h3); }
-  @media (min-width: 900px) {
-    .ab { grid-template-columns: 0.85fr 1fr; }
-    .ab__media { position: sticky; top: 100px; }
-  }
-  .ataglance { margin: 2rem 0 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
-  .ataglance > div { display: grid; gap: 0.3rem 2rem; padding-block: 1.15rem; border-bottom: 1px solid var(--line); }
-  .ataglance dt { font-size: var(--t-micro); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); }
-  .ataglance dd { margin: 0; }
-  @media (min-width: 760px) { .ataglance > div { grid-template-columns: 14rem 1fr; align-items: baseline; } }
+  .ab { display: grid; gap: clamp(1.75rem, 1rem + 3.5vw, 4rem); align-items: start; }
+  .ab__lede .statement { max-width: 17ch; }
+  @media (min-width: 900px) { .ab { grid-template-columns: 1fr 1fr; } }
+
+  .ab2 { display: grid; gap: clamp(1.75rem, 1rem + 3.5vw, 4rem); align-items: start; }
+  @media (min-width: 900px) { .ab2 { grid-template-columns: 1fr 1fr; } }
+
+  .glance { margin: clamp(2rem, 3.5vw, 3rem) 0 0; display: grid; }
+  .glance > div { display: grid; gap: 0.35rem 2.5rem; padding-block: 1.35rem; border-top: 1px solid var(--line-l); }
+  .glance dt { font-size: var(--t-eyebrow); letter-spacing: 0.24em; text-transform: uppercase; color: var(--on-light-mute); }
+  .glance dd { margin: 0; font-size: 1.05rem; }
+  @media (min-width: 760px) { .glance > div { grid-template-columns: 15rem 1fr; align-items: baseline; } }
 </style>

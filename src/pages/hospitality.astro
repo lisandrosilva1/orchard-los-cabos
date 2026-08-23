@@ -1,58 +1,39 @@
 ---
 import Base from '../layouts/Base.astro';
-import Photo from '../components/Photo.astro';
+import PageHero from '../components/PageHero.astro';
+import Duo from '../components/Duo.astro';
 import CtaBand from '../components/CtaBand.astro';
-import PageHeader from '../components/PageHeader.astro';
 import { whatsappUrl, contact } from '../data/site';
 
+import heroImg from '../assets/images/eggs-basket-villa-marble.jpg';
+import bowlImg from '../assets/images/eggs-ceramic-bowl-villa.jpg';
 import crateImg from '../assets/images/egg-crate-orchard-label.jpg';
 
 const enquire = (topic: string) =>
   whatsappUrl(`Hi Orchard — I'm enquiring about ${topic} for a hospitality business in Los Cabos.`);
 
 const programmes = [
-  {
-    id: 'weekly-eggs',
-    name: 'Weekly egg supply',
+  { id: 'weekly-eggs', name: 'Weekly egg supply',
     body: 'A standing order delivered on a fixed day: the volume your kitchen actually uses, packed in cartons or trays. The simplest way to work with us, and how most properties start.',
-    points: ['Fixed weekly delivery', 'Cartons or trays', 'Volume agreed up front'],
-  },
-  {
-    id: 'speciality-eggs',
-    name: 'Speciality coloured eggs',
-    body: 'Pale blue-green shells alongside deep brown and cream, for plating, breakfast display and amenity baskets. Laid in smaller numbers, so volumes are agreed in advance rather than promised on demand.',
-    points: ['Mixed-colour trays', 'Allocated in advance', 'For plating and display'],
-  },
-  {
-    id: 'poultry-supply',
-    name: 'Whole poultry',
-    body: 'Broilers and mature hens from the same farm and the same feed as the laying flock, vacuum-sealed for the kitchen. Batch sizes and weights are confirmed each week rather than assumed.',
-    points: ['Vacuum-sealed', 'Weights confirmed per batch', 'Recurring or one-off'],
-  },
-  {
-    id: 'own-label',
-    name: 'Packaging and own-label',
+    points: ['Fixed weekly delivery', 'Cartons or trays', 'Volume agreed up front'] },
+  { id: 'speciality-eggs', name: 'Speciality coloured eggs',
+    body: 'Sage and powder blue alongside deep russet and cream, for plating, breakfast display and amenity baskets. Laid in smaller numbers, so volumes are agreed in advance rather than promised on demand.',
+    points: ['Mixed-colour trays', 'Allocated in advance', 'Plating and display'] },
+  { id: 'poultry-supply', name: 'Whole poultry',
+    body: 'Broilers and mature hens from the same farm and the same feed as the laying flock, vacuum-sealed for the kitchen. Batch sizes and weights confirmed each week rather than assumed.',
+    points: ['Vacuum-sealed', 'Weights confirmed weekly', 'Recurring or one-off'] },
+  { id: 'own-label', name: 'Packaging and own-label',
     body: 'Cartons and wooden crates finished for a farm shop, a market stall or an in-room amenity — your label rather than ours where that makes more sense for the property.',
-    points: ['Farm-shop packing', 'Own-label options', 'Amenity presentation'],
-  },
-  {
-    id: 'amenity-flocks',
-    name: 'Display and amenity flocks',
-    body: 'Laying hens and ornamental breeds placed on a property — for a hacienda garden, a farm shop, a family area or a seasonal installation — with the birds, the housing guidance and the follow-up handled by us.',
-    points: ['Laying and ornamental breeds', 'Placement and guidance', 'Seasonal programmes available'],
-  },
-  {
-    id: 'technical-visits',
-    name: 'Technical visits and flock consulting',
+    points: ['Farm-shop packing', 'Own-label options', 'Amenity presentation'] },
+  { id: 'amenity-flocks', name: 'Display and amenity flocks',
+    body: 'Laying hens and ornamental breeds placed on a property — a hacienda garden, a farm shop, a family area or a seasonal installation — with the birds, the housing guidance and the follow-up handled by us.',
+    points: ['Laying and ornamental breeds', 'Placement and guidance', 'Seasonal programmes'] },
+  { id: 'technical-visits', name: 'Technical visits and flock consulting',
     body: 'For properties and farms already keeping birds: a recurring on-site visit covering flock health and behaviour, facilities, handling, vaccination and record-keeping, with written recommendations after each visit.',
-    points: ['Recurring on-site visits', 'Health and welfare assessment', 'Written reporting'],
-  },
-  {
-    id: 'custom-programmes',
-    name: 'Custom poultry and farm programmes',
-    body: 'Some properties want to produce on their own land rather than buy in. We plan, build and run poultry production for hotels, villas and restaurant groups — the housing, the flock, the daily operation and the weekly output — scoped privately around what the property actually needs.',
-    points: ['Planned around the property', 'Build and ongoing operation', 'Discussed under NDA where needed'],
-  },
+    points: ['Recurring on-site visits', 'Health and welfare review', 'Written reporting'] },
+  { id: 'custom-programmes', name: 'Custom poultry and farm programmes',
+    body: 'Some properties would rather produce on their own land than buy in. We plan, build and run poultry production for hotels, villas and restaurant groups — the housing, the flock, the daily operation and the weekly output — scoped privately around what the property actually needs.',
+    points: ['Planned around the property', 'Build and ongoing operation', 'Discussed under NDA'] },
 ];
 ---
 <Base
@@ -61,45 +42,42 @@ const programmes = [
   breadcrumb={[{ name: 'Hospitality', href: '/hospitality/' }]}
   fabMessage="Hi Orchard — I'd like to discuss hospitality supply."
 >
-  <PageHeader
+  <PageHero src={heroImg}
+    alt="A woven basket of Orchard eggs on a marble counter in a Los Cabos villa, the sea beyond the terrace."
     eyebrow="Hospitality"
     title="A farm you can put on the menu."
-    lead="Hotels, restaurants, villas and private chefs across Los Cabos work with Orchard for eggs and poultry that come from one named farm, twenty minutes away, that their guests can actually go and visit."
-  >
-    <div class="btn-row">
-      <a class="btn btn--primary" href={enquire('regular egg and poultry supply')} target="_blank" rel="noopener"
+    lead="Hotels, restaurants, villas and private chefs across Los Cabos work with Orchard for eggs and poultry that come from one named farm, twenty minutes away, that their guests can actually go and visit.">
+    <div class="btns">
+      <a class="btn btn--solid" href={enquire('regular egg and poultry supply')} target="_blank" rel="noopener"
          data-evt="hospitality_inquiry" data-cta="hospitality_header">Talk to the farm</a>
     </div>
-  </PageHeader>
+  </PageHero>
 
-  <section class="section">
-    <div class="wrap">
+  <section class="bay">
+    <div class="shell">
       <span class="eyebrow">Why properties work with us</span>
       <div class="pillars">
-        <div><h2>One farm, named</h2><p>Not a distributor's mixed pallet. Every egg comes from one flock in San José del Cabo, and you can say so on the menu.</p></div>
-        <div><h2>A short chain</h2><p>Collected by hand and delivered by us across Los Cabos — no warehouse and no long haul between the nesting box and the pass.</p></div>
-        <div><h2>Your guests can visit it</h2><p>The farm is open by appointment. A supplier that guests can be sent to is worth more than one they cannot.</p></div>
+        <div class="rise"><h2>One farm, named</h2><p>Not a distributor's mixed pallet. Every egg comes from one flock in San José del Cabo, and you can say so on the menu.</p></div>
+        <div class="rise"><h2>A short chain</h2><p>Collected by hand and delivered by us across Los Cabos — no warehouse and no long haul between the nesting box and the pass.</p></div>
+        <div class="rise"><h2>Your guests can visit it</h2><p>The farm is open by appointment. A supplier you can send guests to is worth more than one you cannot.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="section section--tint">
-    <div class="wrap">
+  <section class="bay light">
+    <div class="shell">
       <span class="eyebrow">Programmes</span>
-      <h2 class="pg__h">How properties work with the farm.</h2>
+      <h2 class="statement pg__h">How properties work with the farm.</h2>
       <ol class="plist">
         {programmes.map((p, i) => (
-          <li class="prog" id={p.id}>
+          <li class="prog rise" id={p.id}>
             <span class="prog__n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
             <div>
               <h3>{p.name}</h3>
               <p class="prog__body">{p.body}</p>
               <ul class="prog__pts">{p.points.map((x) => <li>{x}</li>)}</ul>
-              <a class="link prog__cta" href={enquire(p.name.toLowerCase())} target="_blank" rel="noopener"
-                 data-evt="hospitality_inquiry" data-cta="programme_block" data-service={p.id}>
-                Enquire
-                <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-              </a>
+              <a class="tlink prog__cta" href={enquire(p.name.toLowerCase())} target="_blank" rel="noopener"
+                 data-evt="hospitality_inquiry" data-cta="programme_block" data-service={p.id}>Enquire</a>
             </div>
           </li>
         ))}
@@ -107,59 +85,62 @@ const programmes = [
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap feature">
-      <div class="feature__media">
-        <Photo src={crateImg}
-          alt="A wooden Orchard egg crate tied with twine and tagged with the farm's label, ready for delivery."
-          sizes="(min-width: 900px) 48vw, 100vw" widths={[420, 640, 900, 1100]} ratio="4/3" />
-      </div>
-      <div class="feature__copy">
-        <span class="eyebrow">Getting started</span>
-        <h2>What the first conversation looks like.</h2>
-        <div class="prose">
-          <p>
-            Tell us the property, roughly what you go through in a week, and how you would
-            want it packed. We come back with what the farm can commit to, when it can start,
-            and what it costs — quoted for your volume rather than off a public price list.
-          </p>
-          <p>
-            Larger programmes, own-label packing and on-property production are scoped
-            privately, and we are happy to work under a confidentiality agreement.
-          </p>
-        </div>
-        <div class="btn-row">
-          <a class="btn btn--primary" href={enquire('regular supply')} target="_blank" rel="noopener"
-             data-evt="hospitality_inquiry" data-cta="hospitality_start">Start the conversation</a>
-          <a class="btn btn--ghost" href={`mailto:${contact.email}?subject=${encodeURIComponent('Hospitality supply enquiry — Orchard Los Cabos')}`}
-             data-cta="hospitality_start">Email instead</a>
-        </div>
-      </div>
+  <Duo src={bowlImg} ratio="4/5"
+       alt="A stoneware bowl of Orchard eggs on a table in a Los Cabos villa, the terrace beyond.">
+    <span class="eyebrow">Getting started</span>
+    <h2>What the first conversation looks like.</h2>
+    <div class="prose">
+      <p>
+        Tell us the property, roughly what you go through in a week, and how you would want
+        it packed. We come back with what the farm can commit to, when it can start, and what
+        it costs — quoted for your volume rather than off a public price list.
+      </p>
+      <p>
+        Larger programmes, own-label packing and on-property production are scoped privately,
+        and we are happy to work under a confidentiality agreement.
+      </p>
     </div>
-  </section>
+    <div class="btns">
+      <a class="btn btn--solid" href={enquire('regular supply')} target="_blank" rel="noopener"
+         data-evt="hospitality_inquiry" data-cta="hospitality_start">Start the conversation</a>
+      <a class="btn btn--line" href={`mailto:${contact.email}?subject=${encodeURIComponent('Hospitality supply enquiry — Orchard Los Cabos')}`}
+         data-cta="hospitality_start">Email instead</a>
+    </div>
+  </Duo>
+
+  <Duo src={crateImg} flip ratio="4/3"
+       alt="A wooden Orchard egg crate tied with twine and tagged with the farm's label, ready for delivery.">
+    <span class="eyebrow">Presentation</span>
+    <h2>Packed the way the property wants it.</h2>
+    <div class="prose">
+      <p>
+        Kraft cartons for the back of house, wooden crates and twine for a farm shop or an
+        in-room amenity, plain trays for volume. We will finish it under your label where
+        that serves the property better than ours.
+      </p>
+    </div>
+  </Duo>
 
   <CtaBand location="hospitality" />
 </Base>
 
 <style>
-  .pillars { display: grid; gap: 2rem; margin-top: 2rem; }
+  .pillars { display: grid; gap: 2.5rem; margin-top: 1.5rem; }
   .pillars h2 { font-size: var(--t-h3); }
-  .pillars p { margin-top: 0.7rem; color: var(--ink-soft); font-size: var(--t-small); max-width: 40ch; }
-  @media (min-width: 860px) { .pillars { grid-template-columns: repeat(3, 1fr); gap: 3rem; } }
+  .pillars p { margin-top: 0.85rem; color: var(--on-dark-soft); font-size: var(--t-small); max-width: 38ch; }
+  @media (min-width: 880px) { .pillars { grid-template-columns: repeat(3, 1fr); gap: 3.5rem; } }
 
-  .pg__h { font-size: var(--t-h2); margin-top: 0.4rem; }
-  .plist { list-style: none; margin: 2.5rem 0 0; padding: 0; border-top: 1px solid var(--line); }
-  .prog { display: grid; gap: 0.4rem 2.5rem; padding-block: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem); border-bottom: 1px solid var(--line); }
-  .prog__n { font-family: var(--display); font-size: var(--t-small); color: var(--green); letter-spacing: 0.1em; }
-  .prog h3 { font-size: var(--t-h3); }
-  .prog__body { margin-top: 0.75rem; color: var(--ink-soft); max-width: 60ch; }
-  .prog__pts { list-style: none; padding: 0; margin: 1.25rem 0 0; display: flex; flex-wrap: wrap; gap: 0.45rem; }
-  .prog__pts li { font-size: var(--t-micro); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-mute); border: 1px solid var(--line); border-radius: 999px; padding: 0.4rem 0.8rem; }
-  .prog__cta { margin-top: 1.5rem; }
-  @media (min-width: 860px) { .prog { grid-template-columns: 4rem 1fr; } }
-
-  .feature { display: grid; gap: clamp(1.75rem, 1rem + 4vw, 3.5rem); align-items: center; }
-  .feature__copy h2 { font-size: var(--t-h2); }
-  .feature__copy .prose { margin-top: 1.5rem; }
-  @media (min-width: 900px) { .feature { grid-template-columns: 1fr 1fr; } }
+  .pg__h { margin-top: 0.4rem; }
+  .plist { list-style: none; margin: clamp(2.5rem, 4vw, 3.5rem) 0 0; padding: 0; }
+  .prog { display: grid; gap: 0.5rem 3rem; padding-block: clamp(2rem, 1.4rem + 2vw, 3rem); border-top: 1px solid var(--line-l); }
+  .prog__n { font-family: var(--display); font-size: 0.8rem; letter-spacing: 0.24em; color: var(--ember); padding-top: 0.4rem; }
+  .prog h3 { font-family: var(--display); font-weight: 300; font-size: var(--t-h3); }
+  .prog__body { margin-top: 0.85rem; color: var(--on-light-soft); max-width: 60ch; }
+  .prog__pts { list-style: none; padding: 0; margin: 1.35rem 0 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .prog__pts li {
+    font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--on-light-mute); border: 1px solid var(--line-l); padding: 0.5rem 0.9rem;
+  }
+  .prog__cta { margin-top: 1.7rem; }
+  @media (min-width: 880px) { .prog { grid-template-columns: 4.5rem 1fr; } }
 </style>
