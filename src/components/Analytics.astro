@@ -11,12 +11,70 @@
  * exists. See docs/ANALYTICS.md.
  */
 const gaId = import.meta.env.PUBLIC_GA4_ID ?? '';
+/**
+ * Meta (Facebook/Instagram) pixel. Public in the same way the GA4 ID is — it ships
+ * in the page HTML — and inert until set. Orchard's own pixel: never share one
+ * across brands, or two businesses' audiences end up in the same bucket.
+ */
+const pixelId = import.meta.env.PUBLIC_META_PIXEL_ID ?? '';
 const isProd = import.meta.env.PROD;
 /** Only this host may send hits, so previews and forks cannot pollute GA4. */
 const analyticsHost = 'orchardcabo.com';
+
+/**
+ * Event name → Meta standard event.
+ *
+ * Meta optimises properly only for events it recognises by name, so each of ours is
+ * reported under the standard name that means the same thing. An event absent here
+ * is not sent to the pixel at all: instagram_click sends people away from the site
+ * and is nobody's conversion.
+ */
+const metaEvents = {
+  order_whatsapp_click: 'Lead',
+  phone_click: 'Contact',
+  email_click: 'Contact',
+  directions_click: 'FindLocation',
+  product_view: 'ViewContent',
+};
 ---
 
-<script is:inline define:vars={{ gaId, isProd, analyticsHost }}>
+{
+  pixelId && (
+    <script is:inline define:vars={{ pixelId, isProd, analyticsHost }}>
+      {/* Meta's base snippet, verbatim apart from the injected ID: defines fbq,
+          loads fbevents.js, records one PageView. Every other event is sent by
+          track() below, so the pixel and GA4 can never drift apart.
+
+          Gated on the same production host as GA4, and for a stronger reason: a
+          stray GA4 hit is noise in a report, while a stray pixel hit lands in the
+          audiences and conversion data an ad account spends money against. */}
+      var onPixelHost =
+        location.hostname === analyticsHost || location.hostname.endsWith('.' + analyticsHost);
+      if (isProd && onPixelHost) {
+        !(function (f, b, e, v, n, t, s) {
+          if (f.fbq) return;
+          n = f.fbq = function () {
+            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+          };
+          if (!f._fbq) f._fbq = n;
+          n.push = n;
+          n.loaded = !0;
+          n.version = '2.0';
+          n.queue = [];
+          t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', pixelId);
+        fbq('track', 'PageView');
+      }
+    </script>
+  )
+}
+
+<script is:inline define:vars={{ gaId, isProd, analyticsHost, metaEvents }}>
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
   window.gtag = gtag;
@@ -70,7 +128,8 @@ const analyticsHost = 'orchardcabo.com';
     else window.addEventListener('load', schedule, { once: true });
   }
 
-  /** Fire a business event. Always hits dataLayer; hits GA4 when configured. */
+  /** Fire a business event. Always hits dataLayer; hits GA4 and the pixel when
+   *  each is configured. One call, so the two platforms count the same thing. */
   function track(name, params) {
     var payload = Object.assign(
       {
@@ -81,6 +140,13 @@ const analyticsHost = 'orchardcabo.com';
     );
     if (gaActive) gtag('event', name, payload);
     else window.dataLayer.push(Object.assign({ event: name }, payload));
+
+    var metaName = metaEvents[name];
+    if (metaName && typeof window.fbq === 'function') {
+      window.fbq('track', metaName, {
+        content_name: payload.product || payload.service || payload.cta_location,
+      });
+    }
     if (!isProd) console.info('[analytics]', name, payload);
   }
   window.orchardTrack = track;
@@ -136,3 +202,20 @@ const analyticsHost = 'orchardcabo.com';
     observeProducts();
   }
 </script>
+
+{
+  pixelId && (
+    <noscript>
+      {/* The no-JavaScript fallback Meta asks for. It is a plain image request,
+          so it fires wherever the page is served — unlike the script above, which
+          is host-gated. Harmless: a PageView is not a conversion. */}
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        alt=""
+        src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
+      />
+    </noscript>
+  )
+}
