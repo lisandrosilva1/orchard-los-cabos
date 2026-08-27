@@ -32,6 +32,11 @@ jobs:
           # Set this repository variable once the GA4 property exists.
           # Empty is safe: the tag simply is not emitted.
           PUBLIC_GA4_ID: ${{ vars.PUBLIC_GA4_ID }}
+          # Same story for the Meta pixel. Vite only inlines PUBLIC_* variables
+          # that are in the build process's environment, so setting the
+          # repository variable is not enough on its own — it has to be handed
+          # to this step, or the pixel silently never ships.
+          PUBLIC_META_PIXEL_ID: ${{ vars.PUBLIC_META_PIXEL_ID }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
